@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HN Creative - Solusi Digital Terbaik</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- React & ReactDOM -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  
+  <!-- Babel (Untuk menerjemahkan bahasa React di dalam browser) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-[#FAFAFA] text-slate-900 overflow-x-hidden">
+  
+  <!-- Tempat aplikasi React akan dimuat -->
+  <div id="root"></div>
+
+  <!-- Kode React Anda diletakkan di sini -->
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // Kumpulan SVG Ikon Lucide (Bypass UMD CDN Error)
+    const iconsPaths = {
+      ShoppingBag: '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>',
+      MessageCircle: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+      Store: '<path d="m2 7 4.04-4.04a2 2 0 0 1 1.41-.58h9.1a2 2 0 0 1 1.41.58L22 7"/><path d="M2 12h20"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M10 12v8"/><path d="M14 12v8"/>',
+      Globe: '<circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/>',
+      Share2: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>',
+      Moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+      Sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
+      Instagram: '<rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>',
+      Twitter: '<path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>',
+      Youtube: '<path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/>',
+      CheckCircle2: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+      Hexagon: '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>',
+      Users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+      ArrowLeft: '<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
+      Star: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+      Lock: '<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+      ChevronDown: '<path d="m6 9 6 6 6-6"/>',
+      Play: '<polygon points="5 3 19 12 5 21 5 3"/>'
+    };
+
+    const Icon = ({ name, className="", fill="none", ...props }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill={fill} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} dangerouslySetInnerHTML={{ __html: iconsPaths[name] }} {...props} />
+    );
+
+    const ShoppingBag = (props) => <Icon name="ShoppingBag" {...props} />;
+    const MessageCircle = (props) => <Icon name="MessageCircle" {...props} />;
+    const Store = (props) => <Icon name="Store" {...props} />;
+    const Globe = (props) => <Icon name="Globe" {...props} />;
+    const Share2 = (props) => <Icon name="Share2" {...props} />;
+    const Moon = (props) => <Icon name="Moon" {...props} />;
+    const Sun = (props) => <Icon name="Sun" {...props} />;
+    const Instagram = (props) => <Icon name="Instagram" {...props} />;
+    const Twitter = (props) => <Icon name="Twitter" {...props} />;
+    const Youtube = (props) => <Icon name="Youtube" {...props} />;
+    const CheckCircle2 = (props) => <Icon name="CheckCircle2" {...props} />;
+    const Hexagon = (props) => <Icon name="Hexagon" {...props} />;
+    const Users = (props) => <Icon name="Users" {...props} />;
+    const ArrowLeft = (props) => <Icon name="ArrowLeft" {...props} />;
+    const Star = (props) => <Icon name="Star" {...props} />;
+    const Lock = (props) => <Icon name="Lock" {...props} />;
+    const ChevronDown = (props) => <Icon name="ChevronDown" {...props} />;
+    const Play = (props) => <Icon name="Play" {...props} />;
+
+    function App() {
+      // Mengatur tema awal otomatis berdasarkan jam lokal pengguna (Real-time)
+      const [isDarkMode, setIsDarkMode] = useState(() => {
+        const currentHour = new Date().getHours();
+        return currentHour >= 18 || currentHour < 6;
+      });
+      
+      const [toastMessage, setToastMessage] = useState('');
+      const [visitorCount, setVisitorCount] = useState(0);
+      const [currentView, setCurrentView] = useState('home');
+      const [revealedItems, setRevealedItems] = useState([]);
+
+      // Data untuk halaman Showcase (Shopee & TikTok)
+      const showcaseItems = [
+        {
+          id: 'shopee',
+          prefix: 'Official Store',
+          title: 'Shopee',
+          rating: 5.0,
+          sold: '5Rb+ Terjual',
+          image: 'https://akcdn.detik.net.id/visual/2024/06/27/logo-shopee_169.jpeg?w=1200',
+          logo: 'https://img.icons8.com/color/512/shopee.png',
+          bgColor: '#ee4d2d',
+          description: 'Klaim voucher gratis ongkir dan nikmati diskon besar-besaran untuk semua produk kami di Shopee.',
+          url: 'https://collshp.com/hncreative',
+          btnText: 'BUKA SHOPEE'
+        },
+        {
+          id: 'tiktok',
+          prefix: 'Official Store',
+          title: 'TikTok Shop',
+          rating: 4.9,
+          sold: '3Rb+ Terjual',
+          image: 'https://gamebrott.com/wp-content/uploads/2023/10/TikTok-Shop-Dikabarkan.jpg',
+          logo: 'https://img.icons8.com/color/512/tiktok.png',
+          bgColor: '#000000',
+          description: 'Belanja sambil nonton live! Dapatkan promo eksklusif dan harga spesial hanya di TikTok Shop.',
+          url: 'https://vt.tokopedia.com/t/ZS9duLxCvngNb-B8yyW/',
+          btnText: 'BUKA TIKTOK'
+        }
+      ];
+
+      // Data untuk halaman Katalog (Produk Digital)
+      const catalogItems = [
+        {
+          id: 1, prefix: 'Canva', title: 'Pro 1 Bulan', rating: 5.0, sold: '4,2Rb+ Terjual', price: '8K', oldPrice: '15K',
+          image: 'https://gizmologi.id/wp-content/uploads/2024/05/New-Canva-UI-860x484.jpg', logo: 'https://img.icons8.com/color/512/canva.png',
+          bgColor: '#8b3dff', description: 'Akses penuh ke semua template premium, elemen grafis, dan fitur ajaib Canva Pro untuk desain tanpa batas.', checkoutUrl: 'http://lynk.id/hncreative_/8nXyb5N/checkout'
+        },
+        {
+          id: 2, prefix: 'CapCut', title: 'Pro 1 Bulan', rating: 4.8, sold: '2,8Rb+ Terjual', price: '25K', oldPrice: '35K',
+          image: 'https://www.aiseesoft.com/images/resource/capcut/capcut-app.jpg', logo: 'https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxtHdRB6xk71KqOPxE23.XPgLjp..PdEhXa0HBKjsrfQnCmvs.qP_b5HVX7HUgUN2lnpQapm5ozMWxp4GdOkdfM8-&format=source',
+          bgColor: '#1f2937', description: 'Edit video tanpa watermark, efek transisi premium, dan alat AI canggih untuk konten FYP dan viral kamu.', checkoutUrl: ''
+        },
+        {
+          id: 3, prefix: 'Netflix', title: 'Premium 4K', rating: 4.9, sold: '5Rb+ Terjual', price: '50K', oldPrice: '95K',
+          image: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=400&q=80', logo: 'https://img.icons8.com/color/512/netflix.png',
+          bgColor: '#e50914', description: 'Nonton film & series favorit tanpa batas dengan kualitas 4K HDR. Garansi anti-hold dan fitur lengkap.', checkoutUrl: 'http://lynk.id/hncreative_/ovzd1q7owj07/checkout'
+        },
+        {
+          id: 4, prefix: 'Spotify', title: 'Prem 1 Bulan', rating: 4.9, sold: '3,5Rb+ Terjual', price: '30K', oldPrice: '45K',
+          image: 'https://gadget.jagatreview.com/wp-content/uploads/2025/11/Spotify-Premium-Platinum-features-1920x1080.webp', logo: 'https://img.icons8.com/color/512/spotify--v1.png',
+          bgColor: '#1db954', description: 'Dengarkan musik tanpa iklan, skip lagu sepuasnya, dan download untuk mendengarkan secara offline.', checkoutUrl: 'http://lynk.id/hncreative_/j1kdmj2vxjjm/checkout'
+        },
+        {
+          id: 5, prefix: 'YouTube', title: 'Prem 1 Bulan', rating: 4.8, sold: '2,1Rb+ Terjual', price: '30K', oldPrice: '69K',
+          image: 'https://bertuahpos.com/wp-content/uploads/2024/10/youtube-ios-app.jpg', logo: 'https://img.icons8.com/color/512/youtube-play.png',
+          bgColor: '#ff0000', description: 'Nonton video YouTube dan dengerin YT Music tanpa jeda iklan sama sekali. Bisa putar di latar belakang!', checkoutUrl: ''
+        },
+        {
+          id: 6, prefix: 'VSCO', title: 'Premium', rating: 4.8, sold: '2,4Rb+ Terjual', price: '30K', oldPrice: '75K',
+          image: 'https://images.squarespace-cdn.com/content/v1/626789f5599dbd0a915238d2/1654719907230-6QXODKX2OP11IDSN97WN/VSCOO.jpg', logo: 'https://play-lh.googleusercontent.com/RdCklOFg3SLN5QF8OR7cU-5bs1ESYo_pqGYrK2ena3XZDcrLOpjf7vLtNQELOR7Uo4MH=w240-h480-rw',
+          bgColor: '#181818', description: 'Buka semua preset estetik premium VSCO X dan alat editing tingkat lanjut untuk feed Instagram yang lebih rapi.', checkoutUrl: 'http://lynk.id/hncreative_/vxygp30ywo08/checkout'
+        },
+        {
+          id: 7, prefix: 'Canva', title: 'Pro 1 Tahun', rating: 5.0, sold: '3,1Rb+ Terjual', price: '50K', oldPrice: '120K',
+          image: 'https://gizmologi.id/wp-content/uploads/2024/05/New-Canva-UI-860x484.jpg', logo: 'https://img.icons8.com/color/512/canva.png',
+          bgColor: '#00c4cc', description: 'Lebih hemat! Akses penuh template premium, elemen grafis, dan fitur ajaib Canva Pro selama 1 tahun penuh.', checkoutUrl: 'http://lynk.id/hncreative_/w4o5pk3p5l4x/checkout'
+        },
+        {
+          id: 8, prefix: 'Zoom', title: 'Premium', rating: 4.9, sold: '4,5Rb+ Terjual', price: '35K', oldPrice: '65K',
+          image: 'https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=400&q=80', logo: 'https://img.icons8.com/color/512/zoom.png',
+          bgColor: '#2D8CFF', description: 'Meeting tanpa batas limit 40 menit! Bebas atur room, record cloud, dan fitur co-host untuk webinar yang lancar.', checkoutUrl: ''
+        }
+      ];
+
+      // Animasi Counting (Hitung naik) untuk pengunjung
+      useEffect(() => {
+        const targetCount = 100000;
+        const duration = 2000;
+        const startTime = performance.now();
+
+        const updateCounter = (currentTime) => {
+          const elapsedTime = currentTime - startTime;
+          const progress = Math.min(elapsedTime / duration, 1);
+          const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+          setVisitorCount(Math.floor(easeOutQuart * targetCount));
+
+          if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+          }
+        };
+
+        requestAnimationFrame(updateCounter);
+      }, []);
+
+      // Daftar link utama
+      const links = [
+        {
+          id: 4, title: 'Landing Page', subtitle: 'Temukan cara praktis dan aman menggunakan layanan kami',
+          url: 'https://hncreativeedu.vercel.app/', icon: <Globe className="w-5 h-5" />, color: 'bg-blue-500 hover:bg-blue-600',
+        },
+        {
+          id: 2, title: 'Showcase', subtitle: 'Produk rekomendasi yang pasti diskon dan gratis ongkir ada di sini',
+          url: '#', icon: <Store className="w-5 h-5" />, color: 'bg-orange-500 hover:bg-orange-600',
+        },
+        {
+          id: 1, title: 'Katalog Produk Terbaru', subtitle: 'Lihat koleksi musim ini',
+          url: '#', icon: <ShoppingBag className="w-5 h-5" />, color: 'bg-rose-500 hover:bg-rose-600',
+        },
+        {
+          id: 3, title: 'Tanya Admin (WhatsApp)', subtitle: 'Fast response 08.00 - 17.00',
+          url: 'https://wa.me/6285121358761?text=Halo%20Admin%20HN%20Creative,%20saya%20ingin%20bertanya%20tentang%20produk/layanan%20Anda.',
+          icon: <MessageCircle className="w-5 h-5" />, color: 'bg-emerald-500 hover:bg-emerald-600',
+        }
+      ];
+
+      const handleShare = () => {
+        try {
+          const el = document.createElement('textarea');
+          el.value = window.location.href;
+          document.body.appendChild(el);
+          el.select();
+          document.execCommand('copy');
+          document.body.removeChild(el);
+          showToast('Tautan berhasil disalin!');
+        } catch (err) {
+          showToast('Gagal menyalin tautan.');
+        }
+      };
+
+      const showToast = (message) => {
+        setToastMessage(message);
+        setTimeout(() => setToastMessage(''), 3000);
+      };
+
+      // Efek penerapan Dark Mode ke tag body untuk warna background penuh
+      useEffect(() => {
+        if (isDarkMode) {
+          document.body.style.backgroundColor = '#020617'; // slate-950
+        } else {
+          document.body.style.backgroundColor = '#FAFAFA';
+        }
+      }, [isDarkMode]);
+
+      return (
+        <div className={`min-h-screen transition-colors duration-500 font-sans relative overflow-x-hidden ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-[#FAFAFA] text-slate-900'}`}>
+          
+          {currentView === 'home' && (
+            <div className="fixed inset-0 z-0">
+              <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1920&q=80" alt="Nature Background" className="w-full h-full object-cover" />
+              <div className={`absolute inset-0 backdrop-blur-md transition-colors duration-500 ${isDarkMode ? 'bg-slate-900/80' : 'bg-white/60'}`}></div>
+            </div>
+          )}
+
+          {currentView === 'catalog' ? (
+            <div className="relative z-10 w-full flex flex-col items-center bg-transparent min-h-screen">
+              <div className={`absolute inset-0 z-0 opacity-20 pointer-events-none transition-colors duration-500`}
+                style={{ 
+                  backgroundImage: `linear-gradient(${isDarkMode ? '#334155' : '#cbd5e1'} 1px, transparent 1px), linear-gradient(90deg, ${isDarkMode ? '#334155' : '#cbd5e1'} 1px, transparent 1px)`, 
+                  backgroundSize: '40px 40px' 
+                }}></div>
+              
+              <header className="w-full max-w-6xl mx-auto px-6 py-6 flex justify-between items-center z-50">
+                <div className="flex items-center gap-2 text-xl font-black tracking-tighter text-blue-600 drop-shadow-sm">
+                  <Hexagon className="w-7 h-7 fill-current" />
+                  <span className="hidden sm:inline">HN CREATIVE</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <button onClick={() => setIsDarkMode(!isDarkMode)} className={`p-2.5 rounded-full transition-all shadow-sm ${isDarkMode ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}>
+                    {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                  </button>
+                  <button onClick={() => setCurrentView('home')} className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-transform hover:scale-105 shadow-md ${isDarkMode ? 'bg-white text-black' : 'bg-black text-white'}`}>
+                    <ArrowLeft className="w-4 h-4" /> Back to Bio
+                  </button>
+                </div>
+              </header>
+
+              <main className="w-full flex flex-col items-center text-center px-4 pt-10 md:pt-20 pb-16 z-20">
+                <div className={`flex items-center gap-3 px-4 py-2 rounded-full text-xs font-bold mb-8 shadow-sm border transition-colors ${isDarkMode ? 'bg-slate-800/80 border-slate-700 text-slate-300' : 'bg-white border-slate-200 text-slate-600'}`}>
+                  <div className="flex -space-x-2">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=64&h=64&q=80" alt="User" className="w-7 h-7 rounded-full border-2 border-white object-cover shadow-sm" />
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=64&h=64&q=80" alt="User" className="w-7 h-7 rounded-full border-2 border-white object-cover shadow-sm" />
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=64&h=64&q=80" alt="User" className="w-7 h-7 rounded-full border-2 border-white object-cover shadow-sm" />
+                    <div className="w-7 h-7 rounded-full border-2 border-white bg-blue-500 text-white flex items-center justify-center text-[10px] shadow-sm">+</div>
+                  </div>
+                  <span className="ml-1">Dipercaya 10.000+ Pelanggan Setia</span>
+                </div>
+                <h1 className="text-5xl md:text-[5.5rem] font-black tracking-tight leading-[1.05] max-w-4xl drop-shadow-sm">
+                  Upgrade Akses <br className="hidden md:block" />
+                  <span className="text-blue-600 relative inline-block">
+                    Digital Premium
+                    <svg className="absolute w-full h-4 -bottom-1 md:-bottom-2 left-0 text-rose-500 opacity-60" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0,10 Q50,20 100,10" stroke="currentColor" strokeWidth="4" fill="transparent"/></svg>
+                  </span>
+                </h1>
+                <p className={`mt-8 text-lg md:text-xl font-medium max-w-2xl leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+                  Nikmati layanan berlangganan favorit Anda dengan harga jauh lebih hemat. Proses cepat, garansi penuh, dan 100% aman untuk penggunaan jangka panjang.
+                </p>
+                <div className="mt-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-4 justify-center">
+                  <button onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })} className={`flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-sm shadow-xl transition-all hover:-translate-y-1 ${isDarkMode ? 'bg-blue-600 text-white hover:bg-blue-500' : 'bg-black text-white hover:bg-gray-800'}`}>
+                    Lihat Koleksi Produk <ChevronDown className="w-4 h-4" />
+                  </button>
+                  <a href="https://wa.me/6285121358761" target="_blank" rel="noopener noreferrer" className={`flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-sm transition-all hover:-translate-y-1 border-2 ${isDarkMode ? 'border-slate-700 text-white hover:bg-slate-800' : 'border-slate-200 text-slate-800 hover:bg-slate-50'}`}>
+                    Hubungi Admin
+                  </a>
+                </div>
+              </main>
+
+              <div className="relative z-20 w-full max-w-7xl mx-auto px-4 pb-24 pt-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 lg:gap-x-10 lg:gap-y-16 items-stretch">
+                  {catalogItems.map((item) => {
+                    const isRevealed = item.price && revealedItems.includes(item.id);
+                    return (
+                    <div key={item.id} className="relative mt-24 rounded-[2.5rem] p-8 md:p-10 text-white shadow-2xl transition-all duration-500 hover:-translate-y-4 border border-white/20 backdrop-blur-sm group flex flex-col" style={{backgroundColor: item.bgColor}}>
+                      <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 w-[60%] aspect-[4/3] transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+                        <img src={item.image} alt={item.title} className="w-full h-full object-cover rounded-[1.5rem] shadow-2xl border-4 border-white/90 backdrop-blur-md" />
+                        <div className="absolute -bottom-5 -left-5 bg-white backdrop-blur-md p-3 rounded-2xl shadow-xl border-2 border-slate-100 z-30 transform -rotate-6 transition-transform group-hover:rotate-0">
+                          <img src={item.logo} alt={`Logo ${item.prefix}`} className="w-10 h-10 object-contain drop-shadow-sm" />
+                        </div>
+                      </div>
+                      <div className="absolute top-8 right-6 bg-white/90 backdrop-blur-md text-gray-900 rounded-2xl w-20 h-20 flex flex-col items-center justify-center shadow-lg border-2 border-white/50 z-20 transition-all duration-300 transform group-hover:scale-105">
+                        {!isRevealed ? (
+                          <React.Fragment>
+                            <Lock className="w-5 h-5 text-gray-700 mb-1" />
+                            <span className="text-[10px] font-bold text-gray-800 uppercase text-center leading-tight">Cek<br/>Harga</span>
+                          </React.Fragment>
+                        ) : (
+                          <div className="animate-pulse">
+                            <span className="text-[9px] text-gray-500 uppercase font-bold tracking-wider block text-center">Price</span>
+                            <span className="text-xl font-extrabold leading-none text-gray-800 block text-center">Rp{item.price.replace('K','')}k</span>
+                            <span className="text-[10px] text-gray-400 line-through font-semibold mt-0.5 block text-center">Rp {item.oldPrice}</span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="pt-24 flex flex-col flex-grow">
+                        <h3 className="text-2xl italic font-serif opacity-90 mb-1">{item.prefix}</h3>
+                        <h2 className="text-4xl font-black mb-5 tracking-tight">{item.title}</h2>
+                        <div className="flex items-center gap-2 mb-6 bg-black/20 w-max px-4 py-2 rounded-full backdrop-blur-md border border-white/10 shadow-inner">
+                          <div className="flex">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className={`w-4 h-4 ${i < Math.floor(item.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-white/30 fill-white/30'}`} />
+                            ))}
+                          </div>
+                          <span className="text-sm font-bold">{item.rating}</span>
+                          <span className="text-white/40 text-xs mx-1">|</span>
+                          <span className="text-xs font-bold text-emerald-300 drop-shadow-sm">{item.sold}</span>
+                        </div>
+                        <p className="text-sm text-white/90 mb-8 leading-relaxed font-medium">{item.description}</p>
+                        <div className="mt-auto">
+                          {!isRevealed ? (
+                            <button onClick={() => setRevealedItems([...revealedItems, item.id])} className="bg-white text-slate-900 hover:bg-slate-100 px-6 py-4 rounded-full font-black text-xs tracking-widest transition-all shadow-xl border border-white/50 w-full hover:scale-[1.02]">
+                              BONGKAR HARGA
+                            </button>
+                          ) : (
+                            item.checkoutUrl ? (
+                              <a href={item.checkoutUrl} target="_blank" rel="noopener noreferrer" className="bg-emerald-500 text-white hover:bg-emerald-400 px-6 py-4 rounded-full font-black text-xs tracking-widest transition-all shadow-xl border border-white/50 w-full animate-bounce inline-block text-center hover:scale-[1.02]">
+                                LANJUT CHECKOUT
+                              </a>
+                            ) : (
+                              <button onClick={() => showToast(`Link checkout untuk ${item.prefix} akan segera hadir!`)} className="bg-emerald-500 text-white hover:bg-emerald-400 px-6 py-4 rounded-full font-black text-xs tracking-widest transition-all shadow-xl border border-white/50 w-full animate-bounce hover:scale-[1.02]">
+                                LANJUT CHECKOUT
+                              </button>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )})}
+                </div>
+              </div>
+              <footer className={`w-full py-10 text-center border-t mt-auto z-20 ${isDarkMode ? 'border-slate-800 text-slate-500 bg-slate-950/80' : 'border-slate-200 text-slate-400 bg-white/80'} backdrop-blur-md`}>
+                <div className="flex justify-center gap-6 mb-4">
+                  <a href="#" className="hover:text-blue-500 transition-colors"><Instagram className="w-5 h-5" /></a>
+                  <a href="#" className="hover:text-blue-500 transition-colors"><Twitter className="w-5 h-5" /></a>
+                  <a href="#" className="hover:text-blue-500 transition-colors"><Youtube className="w-5 h-5" /></a>
+                </div>
+                <p className="text-xs font-semibold">© {new Date().getFullYear()} HN Creative. All rights reserved.</p>
+              </footer>
+            </div>
+          ) : currentView === 'showcase' ? (
+            <div className="relative z-10 w-full flex flex-col items-center bg-transparent min-h-screen">
+              <header className="w-full max-w-6xl mx-auto px-6 py-6 flex justify-between items-center z-50">
+                <div className="flex items-center gap-2 text-xl font-black tracking-tighter text-blue-600 drop-shadow-sm">
+                  <Hexagon className="w-7 h-7 fill-current" />
+                  <span className="hidden sm:inline">HN CREATIVE</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <button onClick={() => setIsDarkMode(!isDarkMode)} className={`p-2.5 rounded-full transition-all shadow-sm ${isDarkMode ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}>
+                    {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                  </button>
+                  <button onClick={() => setCurrentView('home')} className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-transform hover:scale-105 shadow-md ${isDarkMode ? 'bg-white text-black' : 'bg-black text-white'}`}>
+                    <ArrowLeft className="w-4 h-4" /> Back to Bio
+                  </button>
+                </div>
+              </header>
+              <main className="w-full flex flex-col items-center text-center px-4 pt-10 md:pt-16 pb-0 z-20">
+                <div className={`flex items-center gap-3 px-4 py-1.5 rounded-full text-xs font-bold mb-8 shadow-sm border transition-colors ${isDarkMode ? 'bg-slate-800/80 border-slate-700 text-slate-300' : 'bg-white border-slate-200 text-slate-600'}`}>
+                  <div className="flex -space-x-2">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=64&h=64&q=80" alt="User" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=64&h=64&q=80" alt="User" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=64&h=64&q=80" alt="User" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
+                  </div>
+                  <span>Trusted by {visitorCount.toLocaleString('id-ID')}+ Users Worldwide</span>
+                </div>
+                <h1 className="text-5xl md:text-[5rem] font-black tracking-tight leading-[1.05] max-w-4xl drop-shadow-sm">
+                  Official <br className="hidden md:block" />
+                  <span className="text-blue-600">Showcase</span>
+                </h1>
+                <p className={`mt-6 text-lg md:text-xl font-medium max-w-2xl leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+                  Produk rekomendasi yang pasti diskon dan gratis ongkir ada di sini.
+                </p>
+              </main>
+              <div className="relative w-full max-w-5xl mx-auto h-[350px] md:h-[450px] mt-8 md:mt-12 z-10 overflow-hidden md:rounded-[2.5rem]">
+                <div className={`absolute inset-x-0 top-0 h-32 bg-gradient-to-b ${isDarkMode ? 'from-slate-950' : 'from-[#FAFAFA]'} to-transparent z-10`}></div>
+                <div className={`absolute inset-y-0 left-0 w-24 bg-gradient-to-r ${isDarkMode ? 'from-slate-950' : 'from-[#FAFAFA]'} to-transparent z-10 hidden md:block`}></div>
+                <div className={`absolute inset-y-0 right-0 w-24 bg-gradient-to-l ${isDarkMode ? 'from-slate-950' : 'from-[#FAFAFA]'} to-transparent z-10 hidden md:block`}></div>
+                <img src="https://mansajululum.ponpes.id/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-01-at-19.36.25.jpeg" alt="Showcase Background" className="w-full h-full object-cover object-center blur-md scale-105" />
+              </div>
+              <section className="w-full max-w-5xl mx-auto px-4 pb-12 md:pb-16 relative z-20 -mt-32 md:-mt-40">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {showcaseItems.map((item) => (
+                    <a key={item.id} href={item.url} target="_blank" rel="noopener noreferrer" className={`group flex flex-col md:flex-row items-center p-2 rounded-[2rem] transition-all duration-300 hover:-translate-y-2 border shadow-xl hover:shadow-2xl ${isDarkMode ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-200'}`}>
+                      <div className="w-full md:w-48 h-48 rounded-[1.5rem] overflow-hidden shrink-0 relative">
+                        <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                      </div>
+                      <div className="p-6 md:p-8 flex-1 text-left w-full">
+                        <div className="flex items-center gap-3 mb-2">
+                          <img src={item.logo} alt="Logo" className="w-8 h-8 drop-shadow-sm" />
+                          <h3 className="text-2xl font-black">{item.title}</h3>
+                        </div>
+                        <div className="flex items-center gap-2 mb-4">
+                          <div className={`flex items-center gap-1 px-2 py-0.5 rounded-md ${isDarkMode ? 'bg-yellow-500/10' : 'bg-yellow-500/20'}`}>
+                            <Star className="w-3.5 h-3.5 text-yellow-500 fill-yellow-500" />
+                            <span className={`text-xs font-bold ${isDarkMode ? 'text-yellow-500' : 'text-yellow-700'}`}>{item.rating}</span>
+                          </div>
+                          <span className={`text-xs font-semibold ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>• {item.sold}</span>
+                        </div>
+                        <p className={`text-sm font-medium leading-relaxed mb-6 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>{item.description}</p>
+                        <span className="inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-extrabold text-white tracking-wider transition-transform group-hover:scale-105" style={{ backgroundColor: item.bgColor }}>
+                          {item.btnText}
+                        </span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+              <footer className={`w-full py-8 text-center border-t mt-auto ${isDarkMode ? 'border-slate-800 text-slate-500' : 'border-slate-200 text-slate-400'}`}>
+                <p className="text-xs font-semibold">© {new Date().getFullYear()} HN Creative. All rights reserved.</p>
+              </footer>
+            </div>
+          ) : (
+            <div className="relative z-10 flex flex-col items-center max-w-lg mx-auto px-4 py-12 md:py-20 min-h-screen">
+              <div className="w-full flex justify-between items-center mb-8">
+                <button onClick={handleShare} className={`p-2.5 rounded-full backdrop-blur-md transition-all shadow-sm border ${isDarkMode ? 'bg-black/40 border-white/10 text-white hover:bg-black/60' : 'bg-white/40 border-white/50 text-slate-800 hover:bg-white/60'}`}>
+                  <Share2 className="w-5 h-5" />
+                </button>
+                <button onClick={() => setIsDarkMode(!isDarkMode)} className={`p-2.5 rounded-full backdrop-blur-md transition-all shadow-sm border ${isDarkMode ? 'bg-black/40 border-white/10 text-yellow-400 hover:bg-black/60' : 'bg-white/40 border-white/50 text-slate-800 hover:bg-white/60'}`}>
+                  {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                </button>
+              </div>
+              <div className="flex flex-col items-center mb-10 w-full text-center">
+                <div className="relative mb-6 group cursor-pointer">
+                  <div className="absolute inset-0 bg-blue-500 rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
+                  <img src="https://i.ibb.co.com/fVMTm44r/b3f64d34-5b1b-4539-a0cc-b108a0600cff.jpg" alt="Profile" className="w-28 h-28 rounded-full border-4 border-white/80 shadow-2xl object-cover relative z-10 transition-transform duration-300 group-hover:scale-105" />
+                  <div className="absolute -bottom-2 -right-2 bg-blue-500 text-white p-2 rounded-full shadow-lg border-2 border-white z-20">
+                    <CheckCircle2 className="w-4 h-4" />
+                  </div>
+                </div>
+                <h1 className="text-2xl font-black mb-1 drop-shadow-sm flex items-center justify-center gap-2">
+                  HN Creative <CheckCircle2 className="w-5 h-5 text-blue-500 fill-blue-500/20" />
+                </h1>
+                <p className={`text-sm font-medium px-4 leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
+                  Solusi Digital Terbaik Anda.<br/>Pilih layanan yang Anda butuhkan di bawah ini 👇
+                </p>
+                <div className={`mt-5 flex items-center justify-center gap-2 px-4 py-2 rounded-full shadow-sm border backdrop-blur-md transition-colors ${isDarkMode ? 'bg-black/40 border-white/10 text-slate-200' : 'bg-white/40 border-white/50 text-slate-800'}`}>
+                  <div className="relative flex items-center justify-center">
+                    <Users className="w-4 h-4 text-blue-500 relative z-10" />
+                    <div className="absolute inset-0 bg-blue-500 rounded-full animate-ping opacity-20"></div>
+                  </div>
+                  <span className="text-sm font-medium">
+                    <strong className="text-blue-500">{visitorCount.toLocaleString('id-ID')}+</strong> Pengunjung
+                  </span>
+                </div>
+              </div>
+              <div className="w-full flex flex-col gap-4 mb-12">
+                {links.map((link) => (
+                  <div key={link.id} className="w-full flex flex-col gap-2">
+                    <a href={link.url} target={link.id !== 1 && link.id !== 2 && link.url !== '#' ? '_blank' : undefined} rel={link.id !== 1 && link.id !== 2 && link.url !== '#' ? 'noopener noreferrer' : undefined} onClick={(e) => {
+                        if (link.id === 1) { e.preventDefault(); setCurrentView('catalog'); window.scrollTo(0,0); } 
+                        else if (link.id === 2) { e.preventDefault(); setCurrentView('showcase'); window.scrollTo(0,0); }
+                      }}
+                      className={`group flex items-center p-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-sm hover:shadow-md cursor-pointer backdrop-blur-md border ${isDarkMode ? 'bg-black/40 border-white/10 hover:bg-black/50' : 'bg-white/40 border-white/50 hover:bg-white/60'}`}>
+                      <div className={`${link.color} text-white p-3 rounded-xl mr-4 transition-transform group-hover:rotate-6 shadow-sm`}>
+                        {link.icon}
+                      </div>
+                      <div className="flex-1 text-left">
+                        <h2 className="font-semibold text-base drop-shadow-sm">{link.title}</h2>
+                        <p className={`text-xs mt-0.5 font-medium ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>{link.subtitle}</p>
+                      </div>
+                      <div className={`p-2 rounded-full backdrop-blur-sm transition-transform duration-300 ${isDarkMode ? 'bg-white/10' : 'bg-white/50'}`}>
+                        <Globe className="w-4 h-4 opacity-70" />
+                      </div>
+                    </a>
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-6 mb-8">
+                <a href="#" className={`p-3 rounded-full backdrop-blur-md transition-all hover:-translate-y-1 shadow-sm border ${isDarkMode ? 'bg-white/10 border-white/10 hover:bg-white/20' : 'bg-white/50 border-white/50 hover:bg-white/80'}`}><Instagram className="w-5 h-5" /></a>
+                <a href="#" className={`p-3 rounded-full backdrop-blur-md transition-all hover:-translate-y-1 shadow-sm border ${isDarkMode ? 'bg-white/10 border-white/10 hover:bg-white/20' : 'bg-white/50 border-white/50 hover:bg-white/80'}`}><Twitter className="w-5 h-5" /></a>
+                <a href="#" className={`p-3 rounded-full backdrop-blur-md transition-all hover:-translate-y-1 shadow-sm border ${isDarkMode ? 'bg-white/10 border-white/10 hover:bg-white/20' : 'bg-white/50 border-white/50 hover:bg-white/80'}`}><Youtube className="w-5 h-5" /></a>
+              </div>
+              <p className={`text-xs font-semibold drop-shadow-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                © {new Date().getFullYear()} HN Creative. All rights reserved.
+              </p>
+            </div>
+          )}
+          {toastMessage && (
+            <div className={`fixed bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-2xl flex items-center gap-2 z-50 animate-bounce backdrop-blur-md border ${isDarkMode ? 'bg-slate-800/80 border-white/10 text-white' : 'bg-white/90 border-white/50 text-slate-800'}`}>
+              <CheckCircle2 className="w-4 h-4 text-green-500" />
+              <span className="text-sm font-medium">{toastMessage}</span>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // Merender aplikasi ke dalam div #root
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
