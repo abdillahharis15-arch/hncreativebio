@@ -196,17 +196,33 @@
         }
       ];
 
-      const handleShare = () => {
-        try {
-          const el = document.createElement('textarea');
-          el.value = window.location.href;
-          document.body.appendChild(el);
-          el.select();
-          document.execCommand('copy');
-          document.body.removeChild(el);
-          showToast('Tautan berhasil disalin!');
-        } catch (err) {
-          showToast('Gagal menyalin tautan.');
+      const handleShare = async () => {
+        const shareData = {
+          title: 'HN Creative - Solusi Digital Terbaik',
+          text: 'Temukan produk digital premium, diskon eksklusif, dan layanan terbaik di HN Creative!',
+          url: 'https://hncreativebio.vercel.app/'
+        };
+
+        // Mengecek apakah browser/perangkat mendukung fitur Share bawaan OS (biasanya di HP)
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            console.log('User membatalkan share atau terjadi error:', err);
+          }
+        } else {
+          // Fungsi Cadangan (Fallback) jika tidak mendukung: Salin Link ke Clipboard
+          try {
+            const el = document.createElement('textarea');
+            el.value = shareData.url;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            showToast('Tautan berhasil disalin!');
+          } catch (err) {
+            showToast('Gagal menyalin tautan.');
+          }
         }
       };
 
