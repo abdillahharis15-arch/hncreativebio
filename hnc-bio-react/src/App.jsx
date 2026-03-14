@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Globe, X } from 'lucide-react';
 import HomeView from './views/HomeView';
 import CatalogView from './views/CatalogView';
 import ShowcaseView from './views/ShowcaseView';
@@ -12,6 +13,16 @@ function App() {
   const [toastMessage, setToastMessage] = useState('');
   const [visitorCount, setVisitorCount] = useState(0);
   const [currentView, setCurrentView] = useState('home');
+  const [showBrowserPrompt, setShowBrowserPrompt] = useState(false);
+
+  // Deteksi In-App Browser (IG/TikTok) saat web pertama kali dimuat
+  useEffect(() => {
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    const isIAB = /Instagram|TikTok|Bytedance|FBAN|FBAV|Line/i.test(ua);
+    if (isIAB) {
+      setShowBrowserPrompt(true);
+    }
+  }, []);
 
   useEffect(() => {
     const targetCount = 100000;
@@ -34,8 +45,8 @@ function App() {
 
   const handleShare = async () => {
     const shareData = {
-      title: 'HN Creative - Solusi Digital Terbaik',
-      text: 'Temukan produk digital premium, diskon eksklusif, dan layanan terbaik di HN Creative!',
+      title: 'Mas Haris - Solusi Digital Terbaik',
+      text: 'Temukan produk digital premium, diskon eksklusif, dan layanan terbaik di Mas Haris!',
       url: 'https://hncreativebio.vercel.app/'
     };
 
@@ -75,6 +86,22 @@ function App() {
 
   return (
     <div className={`min-h-screen transition-colors duration-500 font-sans relative overflow-x-hidden ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-[#FAFAFA] text-slate-900'}`}>
+      
+      {/* Banner Peringatan In-App Browser */}
+      {showBrowserPrompt && (
+        <div className="fixed top-0 inset-x-0 bg-blue-600 text-white px-4 py-3 z-[100] flex items-center justify-between shadow-xl">
+          <div className="flex items-center gap-3">
+            <Globe className="w-6 h-6 animate-pulse shrink-0" />
+            <p className="text-[11px] font-medium leading-snug">
+              Buka di <strong>Chrome/Safari</strong> agar lebih lancar! Klik ikon <strong>titik tiga (⋮)</strong> di pojok kanan atas lalu pilih <strong>Buka di Browser</strong>.
+            </p>
+          </div>
+          <button onClick={() => setShowBrowserPrompt(false)} className="p-1.5 bg-white/20 rounded-full hover:bg-white/30 transition ml-2 shrink-0">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
       {currentView === 'home' && (
         <HomeView 
           isDarkMode={isDarkMode} 

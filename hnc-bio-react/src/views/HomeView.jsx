@@ -33,14 +33,14 @@ export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, vi
           <div className="relative mb-6 group cursor-pointer w-28 h-28">
             <div className="absolute inset-0 bg-blue-500 rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
             <div className="absolute inset-0 rounded-full border-4 border-white/80 shadow-2xl bg-white"></div>
-            <img src="/haris%20ya%20habibi%202.png" alt="Profile" className="absolute inset-0 w-full h-full object-cover rounded-full z-10 transition-transform duration-300 group-hover:scale-105" />
-            <img src="/centang%20biru.png" alt="Verified" className="absolute -bottom-1 -right-1 w-8 h-8 z-20 drop-shadow-md" />
+            <img src="https://i.ibb.co.com/fVMTm44r/b3f64d34-5b1b-4539-a0cc-b108a0600cff.jpg" alt="Profile" className="absolute inset-0 w-full h-full object-cover rounded-full z-10 transition-transform duration-300 group-hover:scale-105" />
+            <img src="https://i.ibb.co.com/jkDhFmS1/Pngtree-instagram-bule-tick-insta-blue-9074860.png" alt="Verified" className="absolute -bottom-1 -right-1 w-8 h-8 z-20 drop-shadow-md" />
           </div>
           <h1 className="text-2xl font-black mb-1 drop-shadow-sm flex items-center justify-center gap-1.5">
-            HN Creative <img src="/centang%20biru.png" alt="Verified" className="w-5 h-5" />
+            Mas Haris <img src="https://i.ibb.co.com/jkDhFmS1/Pngtree-instagram-bule-tick-insta-blue-9074860.png" alt="Verified" className="w-5 h-5" />
           </h1>
           <p className={`text-sm font-medium px-4 leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
-            Solusi Digital Terbaik Anda.<br/>Pilih layanan yang Anda butuhkan di bawah ini 👇
+            Halo guys! 👋 Terima kasih sudah klik link bio ini. Sekarang aku udah siap bantu penuhi kebutuhan digital premium kamu dengan harga sahabat.<br/>Yuk, cek layanannya di bawah 👇
           </p>
           <div className={`mt-5 flex items-center justify-center gap-2 px-4 py-2 rounded-full shadow-sm border backdrop-blur-md transition-colors ${isDarkMode ? 'bg-black/40 border-white/10 text-slate-200' : 'bg-white/40 border-white/50 text-slate-800'}`}>
             <div className="relative flex items-center justify-center">
@@ -101,7 +101,7 @@ export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, vi
         </div>
         
         <p className={`text-xs font-semibold drop-shadow-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-          © {new Date().getFullYear()} HN Creative. All rights reserved.
+          © {new Date().getFullYear()} Mas Haris. All rights reserved.
         </p>
       </div>
     </>

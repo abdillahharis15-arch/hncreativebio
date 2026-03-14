@@ -27,7 +27,7 @@ export const links = [
     id: 3,
     title: 'Tanya Admin (WhatsApp)',
     subtitle: 'Fast response 08.00 - 17.00',
-    url: 'https://wa.me/6285121358761?text=Halo%20Admin%20HN%20Creative,%20saya%20ingin%20bertanya%20tentang%20produk/layanan%20Anda.',
+    url: 'https://wa.me/6285121358761?text=Halo%20Admin%20Mas%20Haris,%20saya%20ingin%20bertanya%20tentang%20produk/layanan%20Anda.',
     iconName: 'MessageCircle',
     color: 'bg-emerald-500 hover:bg-emerald-600',
   }

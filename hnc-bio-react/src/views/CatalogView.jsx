@@ -118,7 +118,7 @@ export default function CatalogView({ isDarkMode, setIsDarkMode, currentView, se
           <a href="#" className="hover:text-blue-500 transition-colors"><Twitter className="w-5 h-5" /></a>
           <a href="#" className="hover:text-blue-500 transition-colors"><Youtube className="w-5 h-5" /></a>
         </div>
-        <p className="text-xs font-semibold">© {new Date().getFullYear()} HN Creative. All rights reserved.</p>
+        <p className="text-xs font-semibold">© {new Date().getFullYear()} Mas Haris. All rights reserved.</p>
       </footer>
     </div>
   );

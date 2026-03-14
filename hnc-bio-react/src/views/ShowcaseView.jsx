@@ -64,7 +64,7 @@ export default function ShowcaseView({ isDarkMode, setIsDarkMode, currentView, s
       </section>
 
       <footer className={`w-full py-8 text-center border-t mt-auto ${isDarkMode ? 'border-slate-800 text-slate-500' : 'border-slate-200 text-slate-400'}`}>
-        <p className="text-xs font-semibold">© {new Date().getFullYear()} HN Creative. All rights reserved.</p>
+        <p className="text-xs font-semibold">© {new Date().getFullYear()} Mas Haris. All rights reserved.</p>
       </footer>
     </div>
   );

@@ -5,7 +5,7 @@ export default function Header({ isDarkMode, setIsDarkMode, currentView, setCurr
     <header className="w-full max-w-6xl mx-auto px-6 py-6 flex justify-between items-center z-50">
       <div className="flex items-center gap-2 text-xl font-black tracking-tighter text-blue-600 drop-shadow-sm">
         <Hexagon className="w-7 h-7 fill-current" />
-        <span className="hidden sm:inline">HN CREATIVE</span>
+        <span className="hidden sm:inline">MAS HARIS</span>
       </div>
       <div className="flex items-center gap-4">
         <button 
