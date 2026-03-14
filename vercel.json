@@ -1,0 +1,6 @@
+{
+  "buildCommand": "cd hnc-bio-react && npm run build",
+  "outputDirectory": "hnc-bio-react/dist",
+  "devCommand": "cd hnc-bio-react && npm run dev",
+  "installCommand": "cd hnc-bio-react && npm install"
+}
