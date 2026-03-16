@@ -1,6 +1,6 @@
-import { Sun, Moon, ArrowLeft, Hexagon } from 'lucide-react';
+import { Sun, Moon, ArrowLeft, Hexagon, Share2 } from 'lucide-react';
 
-export default function Header({ isDarkMode, setIsDarkMode, currentView, setCurrentView }) {
+export default function Header({ isDarkMode, setIsDarkMode, currentView, setCurrentView, handleShare }) {
   return (
     <header className="w-full max-w-6xl mx-auto px-6 py-6 flex justify-between items-center z-50">
       <div className="flex items-center gap-2 text-xl font-black tracking-tighter text-blue-600 drop-shadow-sm">
@@ -16,6 +16,16 @@ export default function Header({ isDarkMode, setIsDarkMode, currentView, setCurr
         >
           {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
         </button>
+        {handleShare && (
+          <button 
+            onClick={handleShare} 
+            className={`p-2.5 rounded-full transition-all shadow-sm ${
+              isDarkMode ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+            }`}
+          >
+            <Share2 className="w-4 h-4" />
+          </button>
+        )}
         {currentView !== 'home' && (
           <button 
             onClick={() => setCurrentView('home')} 

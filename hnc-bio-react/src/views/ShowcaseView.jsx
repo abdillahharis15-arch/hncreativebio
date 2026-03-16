@@ -3,10 +3,10 @@ import Header from '../components/Header';
 import { Star } from 'lucide-react';
 import { showcaseItems } from '../data/constants';
 
-export default function ShowcaseView({ isDarkMode, setIsDarkMode, currentView, setCurrentView, visitorCount }) {
+export default function ShowcaseView({ isDarkMode, setIsDarkMode, currentView, setCurrentView, visitorCount, handleShare }) {
   return (
     <div className="relative z-10 w-full flex flex-col items-center bg-transparent min-h-screen">
-      <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} currentView={currentView} setCurrentView={setCurrentView} />
+      <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} currentView={currentView} setCurrentView={setCurrentView} handleShare={handleShare} />
       
       <main className="w-full flex flex-col items-center text-center px-4 pt-10 md:pt-16 pb-0 z-20">
         <div className={`flex items-center gap-3 px-4 py-1.5 rounded-full text-xs font-bold mb-8 shadow-sm border transition-colors ${isDarkMode ? 'bg-slate-800/80 border-slate-700 text-slate-300' : 'bg-white border-slate-200 text-slate-600'}`}>

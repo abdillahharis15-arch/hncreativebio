@@ -12,7 +12,13 @@ function App() {
   
   const [toastMessage, setToastMessage] = useState('');
   const [visitorCount, setVisitorCount] = useState(0);
-  const [currentView, setCurrentView] = useState('home');
+  const [currentView, setCurrentView] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    const view = params.get('view');
+    if (view === 'catalog' || window.location.hash === '#catalog') return 'catalog';
+    if (view === 'showcase' || window.location.hash === '#showcase') return 'showcase';
+    return 'home';
+  });
   const [showBrowserPrompt, setShowBrowserPrompt] = useState(false);
 
   // Deteksi In-App Browser (IG/TikTok) saat web pertama kali dimuat
@@ -23,6 +29,17 @@ function App() {
       setShowBrowserPrompt(true);
     }
   }, []);
+
+  // Sync currentView to URL untuk mempermudah sharing link dengan view yang spesifik
+  useEffect(() => {
+    const url = new URL(window.location);
+    if (currentView === 'home') {
+      url.searchParams.delete('view');
+    } else {
+      url.searchParams.set('view', currentView);
+    }
+    window.history.pushState({}, '', url);
+  }, [currentView]);
 
   useEffect(() => {
     const targetCount = 100000;
@@ -47,7 +64,7 @@ function App() {
     const shareData = {
       title: 'Mas Haris - Solusi Digital Terbaik',
       text: 'Temukan produk digital premium, diskon eksklusif, dan layanan terbaik di Mas Haris!',
-      url: 'https://hncreativebio.vercel.app/'
+      url: window.location.href
     };
 
     if (navigator.share) {
@@ -119,6 +136,7 @@ function App() {
           currentView={currentView} 
           setCurrentView={setCurrentView} 
           showToast={showToast} 
+          handleShare={handleShare}
         />
       )}
 
@@ -129,6 +147,7 @@ function App() {
           currentView={currentView} 
           setCurrentView={setCurrentView} 
           visitorCount={visitorCount} 
+          handleShare={handleShare}
         />
       )}
 

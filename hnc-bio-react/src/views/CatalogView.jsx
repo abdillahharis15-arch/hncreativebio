@@ -3,7 +3,7 @@ import { Hexagon, Lock, Star, ChevronDown, Instagram, Twitter, Youtube } from 'l
 import Header from '../components/Header';
 import { catalogItems } from '../data/constants';
 
-export default function CatalogView({ isDarkMode, setIsDarkMode, currentView, setCurrentView, showToast }) {
+export default function CatalogView({ isDarkMode, setIsDarkMode, currentView, setCurrentView, showToast, handleShare }) {
   const [revealedItems, setRevealedItems] = useState([]);
 
   return (
@@ -16,7 +16,7 @@ export default function CatalogView({ isDarkMode, setIsDarkMode, currentView, se
         }}
       ></div>
       
-      <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} currentView={currentView} setCurrentView={setCurrentView} />
+      <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} currentView={currentView} setCurrentView={setCurrentView} handleShare={handleShare} />
 
       <main className="w-full flex flex-col items-center text-center px-4 pt-10 md:pt-20 pb-16 z-20">
         <div className={`flex items-center gap-3 px-4 py-2 rounded-full text-xs font-bold mb-8 shadow-sm border transition-colors ${isDarkMode ? 'bg-slate-800/80 border-slate-700 text-slate-300' : 'bg-white border-slate-200 text-slate-600'}`}>
