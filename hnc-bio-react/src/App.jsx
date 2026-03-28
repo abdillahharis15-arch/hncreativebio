@@ -3,6 +3,9 @@ import { Globe, X } from 'lucide-react';
 import HomeView from './views/HomeView';
 import CatalogView from './views/CatalogView';
 import ShowcaseView from './views/ShowcaseView';
+import AdminLogin from './views/AdminLogin';
+import AdminDashboard from './views/AdminDashboard';
+import { supabase } from './lib/supabase';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -12,11 +15,18 @@ function App() {
   
   const [toastMessage, setToastMessage] = useState('');
   const [visitorCount, setVisitorCount] = useState(0);
+  const [session, setSession] = useState(null);
   const [currentView, setCurrentView] = useState(() => {
+    const path = window.location.pathname.replace(/^\/|\/$/g, '');
+    if (path === 'catalog' || path === 'showcase' || path === 'admin') return path;
+
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'catalog' || hash === 'showcase' || hash === 'admin') return hash;
+
     const params = new URLSearchParams(window.location.search);
     const view = params.get('view');
-    if (view === 'catalog' || window.location.hash === '#catalog') return 'catalog';
-    if (view === 'showcase' || window.location.hash === '#showcase') return 'showcase';
+    if (view === 'catalog' || view === 'showcase' || view === 'admin') return view;
+
     return 'home';
   });
   const [showBrowserPrompt, setShowBrowserPrompt] = useState(false);
@@ -28,17 +38,27 @@ function App() {
     if (isIAB) {
       setShowBrowserPrompt(true);
     }
+
+    // Cek session Supabase
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   // Sync currentView to URL untuk mempermudah sharing link dengan view yang spesifik
   useEffect(() => {
-    const url = new URL(window.location);
-    if (currentView === 'home') {
-      url.searchParams.delete('view');
-    } else {
-      url.searchParams.set('view', currentView);
+    const newPath = currentView === 'home' ? '/' : `/${currentView}`;
+    if (window.location.pathname !== newPath) {
+      window.history.pushState({}, '', newPath);
     }
-    window.history.pushState({}, '', url);
   }, [currentView]);
 
   useEffect(() => {
@@ -149,6 +169,14 @@ function App() {
           visitorCount={visitorCount} 
           handleShare={handleShare}
         />
+      )}
+
+      {currentView === 'admin' && (
+        session ? (
+          <AdminDashboard session={session} onLogout={() => setSession(null)} />
+        ) : (
+          <AdminLogin setSession={setSession} />
+        )
       )}
 
       {toastMessage && (
