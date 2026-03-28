@@ -48,58 +48,58 @@ export default function CatalogView({ isDarkMode, setIsDarkMode, currentView, se
         </div>
       </main>
 
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-4 pb-24 pt-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 lg:gap-x-10 lg:gap-y-16 items-stretch">
+      <div className="relative z-20 w-full max-w-7xl mx-auto px-2 sm:px-4 pb-24 pt-10">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-16 sm:gap-x-8 sm:gap-y-12 lg:gap-x-10 lg:gap-y-16 items-stretch">
           {catalogItems.map((item) => {
             const isRevealed = item.price && revealedItems.includes(item.id);
             return (
-              <div key={item.id} className="relative mt-24 rounded-[2.5rem] p-8 md:p-10 text-white shadow-2xl transition-all duration-500 hover:-translate-y-4 border border-white/20 backdrop-blur-sm group flex flex-col" style={{backgroundColor: item.bgColor}}>
-                <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 w-[60%] aspect-[4/3] transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover rounded-[1.5rem] shadow-2xl border-4 border-white/90 backdrop-blur-md" />
-                  <div className="absolute -bottom-5 -left-5 bg-white backdrop-blur-md p-3 rounded-2xl shadow-xl border-2 border-slate-100 z-30 transform -rotate-6 transition-transform group-hover:rotate-0">
-                    <img src={item.logo} alt={`Logo ${item.prefix}`} className="w-10 h-10 object-contain drop-shadow-sm" />
+              <div key={item.id} className="relative mt-16 sm:mt-24 rounded-2xl sm:rounded-[2.5rem] p-4 sm:p-8 md:p-10 text-white shadow-2xl transition-all duration-500 hover:-translate-y-4 border border-white/20 backdrop-blur-sm group flex flex-col" style={{backgroundColor: item.bgColor}}>
+                <div className="absolute -top-12 sm:-top-20 left-1/2 transform -translate-x-1/2 w-[75%] sm:w-[60%] aspect-[4/3] transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
+                  <img src={item.image} alt={item.title} className="w-full h-full object-cover rounded-xl sm:rounded-[1.5rem] shadow-2xl border-2 sm:border-4 border-white/90 backdrop-blur-md" />
+                  <div className="absolute -bottom-3 sm:-bottom-5 -left-3 sm:-left-5 bg-white backdrop-blur-md p-1.5 sm:p-3 rounded-xl sm:rounded-2xl shadow-xl border sm:border-2 border-slate-100 z-30 transform -rotate-6 transition-transform group-hover:rotate-0">
+                    <img src={item.logo} alt={`Logo ${item.prefix}`} className="w-5 h-5 sm:w-10 sm:h-10 object-contain drop-shadow-sm" />
                   </div>
                 </div>
-                <div className="absolute top-8 right-6 bg-white/90 backdrop-blur-md text-gray-900 rounded-2xl w-20 h-20 flex flex-col items-center justify-center shadow-lg border-2 border-white/50 z-20 transition-all duration-300 transform group-hover:scale-105">
+                <div className="absolute top-4 sm:top-8 right-3 sm:right-6 bg-white/90 backdrop-blur-md text-gray-900 rounded-xl sm:rounded-2xl w-12 h-12 sm:w-20 sm:h-20 flex flex-col items-center justify-center shadow-lg border sm:border-2 border-white/50 z-20 transition-all duration-300 transform group-hover:scale-105">
                   {!isRevealed ? (
                     <React.Fragment>
-                      <Lock className="w-5 h-5 text-gray-700 mb-1" />
-                      <span className="text-[10px] font-bold text-gray-800 uppercase text-center leading-tight">Cek<br/>Harga</span>
+                      <Lock className="w-3 h-3 sm:w-5 sm:h-5 text-gray-700 mb-0.5 sm:mb-1" />
+                      <span className="text-[7px] sm:text-[10px] font-bold text-gray-800 uppercase text-center leading-tight">Cek<br/>Harga</span>
                     </React.Fragment>
                   ) : (
                     <div className="animate-pulse">
-                      <span className="text-[9px] text-gray-500 uppercase font-bold tracking-wider block text-center">Price</span>
-                      <span className="text-xl font-extrabold leading-none text-gray-800 block text-center">Rp{item.price.replace('K','')}k</span>
-                      <span className="text-[10px] text-gray-400 line-through font-semibold mt-0.5 block text-center">Rp {item.oldPrice}</span>
+                      <span className="text-[6px] sm:text-[9px] text-gray-500 uppercase font-bold tracking-wider block text-center mt-1 sm:mt-0">Price</span>
+                      <span className="text-sm sm:text-xl font-extrabold leading-none text-gray-800 block text-center">Rp{item.price.replace('K','')}k</span>
+                      <span className="text-[7px] sm:text-[10px] text-gray-400 line-through font-semibold mt-[1px] sm:mt-0.5 block text-center">Rp {item.oldPrice}</span>
                     </div>
                   )}
                 </div>
-                <div className="pt-24 flex flex-col flex-grow">
-                  <h3 className="text-2xl italic font-serif opacity-90 mb-1">{item.prefix}</h3>
-                  <h2 className="text-4xl font-black mb-5 tracking-tight">{item.title}</h2>
-                  <div className="flex items-center gap-2 mb-6 bg-black/20 w-max px-4 py-2 rounded-full backdrop-blur-md border border-white/10 shadow-inner">
+                <div className="pt-16 sm:pt-24 flex flex-col flex-grow">
+                  <h3 className="text-sm sm:text-2xl italic font-serif opacity-90 mb-0.5 sm:mb-1">{item.prefix}</h3>
+                  <h2 className="text-xl sm:text-4xl font-black mb-3 sm:mb-5 tracking-tight min-h-[3rem] sm:min-h-0 leading-tight">{item.title}</h2>
+                  <div className="flex items-center gap-1 sm:gap-2 mb-4 sm:mb-6 bg-black/20 w-max px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full backdrop-blur-md border border-white/10 shadow-inner">
                     <div className="flex">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className={`w-4 h-4 ${i < Math.floor(item.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-white/30 fill-white/30'}`} />
+                        <Star key={i} className={`w-2.5 h-2.5 sm:w-4 sm:h-4 ${i < Math.floor(item.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-white/30 fill-white/30'}`} />
                       ))}
                     </div>
-                    <span className="text-sm font-bold">{item.rating}</span>
-                    <span className="text-white/40 text-xs mx-1">|</span>
-                    <span className="text-xs font-bold text-emerald-300 drop-shadow-sm">{item.sold}</span>
+                    <span className="text-[10px] sm:text-sm font-bold">{item.rating}</span>
+                    <span className="text-white/40 text-[10px] sm:text-xs mx-0.5 sm:mx-1">|</span>
+                    <span className="text-[9px] sm:text-xs font-bold text-emerald-300 drop-shadow-sm">{item.sold}</span>
                   </div>
-                  <p className="text-sm text-white/90 mb-8 leading-relaxed font-medium">{item.description}</p>
+                  <p className="text-[10px] sm:text-sm text-white/90 mb-5 sm:mb-8 leading-snug sm:leading-relaxed font-medium line-clamp-3 sm:line-clamp-none">{item.description}</p>
                   <div className="mt-auto">
                     {!isRevealed ? (
-                      <button onClick={() => setRevealedItems([...revealedItems, item.id])} className="bg-white text-slate-900 hover:bg-slate-100 px-6 py-4 rounded-full font-black text-xs tracking-widest transition-all shadow-xl border border-white/50 w-full hover:scale-[1.02]">
+                      <button onClick={() => setRevealedItems([...revealedItems, item.id])} className="bg-white text-slate-900 hover:bg-slate-100 px-3 sm:px-6 py-2.5 sm:py-4 rounded-xl sm:rounded-full font-black text-[9px] sm:text-xs tracking-wider sm:tracking-widest transition-all shadow-xl border border-white/50 w-full hover:scale-[1.02] flex items-center justify-center min-h-[44px]">
                         BONGKAR HARGA
                       </button>
                     ) : (
                       item.checkoutUrl ? (
-                        <a href={item.checkoutUrl} target="_blank" rel="noopener noreferrer" className="bg-emerald-500 text-white hover:bg-emerald-400 px-6 py-4 rounded-full font-black text-xs tracking-widest transition-all shadow-xl border border-white/50 w-full animate-bounce inline-block text-center hover:scale-[1.02]">
+                        <a href={item.checkoutUrl} target="_blank" rel="noopener noreferrer" className="bg-emerald-500 text-white hover:bg-emerald-400 px-3 sm:px-6 py-2.5 sm:py-4 rounded-xl sm:rounded-full font-black text-[9px] sm:text-xs tracking-wider sm:tracking-widest transition-all shadow-xl border border-white/50 w-full animate-bounce inline-flex items-center justify-center hover:scale-[1.02] min-h-[44px]">
                           LANJUT CHECKOUT
                         </a>
                       ) : (
-                        <button onClick={() => showToast(`Link checkout untuk ${item.prefix} akan segera hadir!`)} className="bg-emerald-500 text-white hover:bg-emerald-400 px-6 py-4 rounded-full font-black text-xs tracking-widest transition-all shadow-xl border border-white/50 w-full animate-bounce hover:scale-[1.02]">
+                        <button onClick={() => showToast(`Link checkout untuk ${item.prefix} akan segera hadir!`)} className="bg-emerald-500 text-white hover:bg-emerald-400 px-3 sm:px-6 py-2.5 sm:py-4 rounded-xl sm:rounded-full font-black text-[9px] sm:text-xs tracking-wider sm:tracking-widest transition-all shadow-xl border border-white/50 w-full animate-bounce hover:scale-[1.02] flex items-center justify-center min-h-[44px]">
                           LANJUT CHECKOUT
                         </button>
                       )
