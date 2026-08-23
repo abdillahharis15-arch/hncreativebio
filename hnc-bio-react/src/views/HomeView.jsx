@@ -139,6 +139,8 @@ export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, vi
   const getLinkByTitle = (keyword) => linksData.find(l => l.title?.toLowerCase().includes(keyword.toLowerCase()));
   const waLink = getLinkByTitle('whatsapp') || getLinkByTitle('admin') || getLinkByTitle('chat') || { url: 'https://wa.me/6285121358761' };
   const lpLink = getLinkByTitle('landing') || getLinkByTitle('resmi') || { url: 'https://hncreativeedu.vercel.app/' };
+  const catalogLink = getLinkByTitle('katalog');
+  const showcaseLink = getLinkByTitle('showcase') || getLinkByTitle('store');
 
   return (
     <div className="relative z-10 flex flex-col items-center max-w-lg mx-auto px-4 py-8 min-h-screen">
@@ -241,13 +243,13 @@ export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, vi
               <path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg>
           </div>
-          <div className="card-title">Katalog Produk Digital</div>
-          <div className="card-subtitle">Canva · Netflix · Spotify · CapCut &amp; lainnya</div>
+          <div className="card-title">{catalogLink?.title || 'Katalog Produk Digital'}</div>
+          <div className="card-subtitle">{catalogLink?.subtitle || 'Canva · Netflix · Spotify · CapCut &amp; lainnya'}</div>
         </div>
 
         {/* About */}
         <div className="bento-card card-about" style={{ cursor: 'default' }}>
-          <div className="card-icon-wrap" style={{ background: 'rgba(255,255,255,0.06)', width: '38px', height: '38px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '14px', color: '#a3a3a3' }}>
+          <div className="card-icon-wrap" style={{ background: 'rgba(255,255,255,0.06)', width: '38px', height: '38px', borderRadius: '12px', display: 'flex', alignItems: 'center', justify-content: 'center', marginBottom: '14px', color: '#a3a3a3' }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
               <line x1="12" y1="16" x2="12" y2="12"></line>
@@ -276,8 +278,8 @@ export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, vi
               <polyline points="9 22 9 12 15 12 15 22"></polyline>
             </svg>
           </div>
-          <div className="card-title">Official Store</div>
-          <div className="card-subtitle">Shopee &amp; TikTok Shop</div>
+          <div className="card-title">{showcaseLink?.title || 'Official Store'}</div>
+          <div className="card-subtitle">{showcaseLink?.subtitle || 'Shopee &amp; TikTok Shop'}</div>
         </div>
 
         {/* WhatsApp */}
@@ -288,8 +290,8 @@ export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, vi
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
             </svg>
           </div>
-          <div className="card-title">Chat Admin</div>
-          <div className="card-subtitle">WA · 08.00 – 17.00</div>
+          <div className="card-title">{waLink?.title || 'Chat Admin'}</div>
+          <div className="card-subtitle">{waLink?.subtitle || 'WA · 08.00 – 17.00'}</div>
         </a>
 
         {/* Landing Page (full width) */}
@@ -300,8 +302,8 @@ export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, vi
             </svg>
           </div>
           <div style={{ flex: 1 }}>
-            <div className="card-title" style={{ fontSize: '15px' }}>Landing Page Resmi</div>
-            <div className="card-subtitle">Panduan lengkap &amp; cara order aman</div>
+            <div className="card-title" style={{ fontSize: '15px' }}>{lpLink?.title || 'Landing Page Resmi'}</div>
+            <div className="card-subtitle">{lpLink?.subtitle || 'Panduan lengkap &amp; cara order aman'}</div>
           </div>
           <span style={{ color: 'var(--muted)', fontSize: '20px' }}>→</span>
         </a>
