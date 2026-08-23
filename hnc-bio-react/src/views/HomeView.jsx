@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Share2, Sun, Moon, CheckCircle2, Users, Globe, Store, ShoppingBag, MessageCircle, Instagram, Twitter, Youtube, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { links as defaultLinks } from '../data/constants';
 
 export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, visitorCount, handleShare }) {
   const [profile, setProfile] = useState(null);
@@ -10,13 +11,19 @@ export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, vi
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data: profileData } = await supabase.from('profile').select('*').single();
+        const { data: profileData, error: profileError } = await supabase.from('profile').select('*').single();
         if (profileData) setProfile(profileData);
 
-        const { data: linksResult } = await supabase.from('links').select('*').order('order_index', { ascending: true });
-        if (linksResult) setLinksData(linksResult);
+        const { data: linksResult, error: linksError } = await supabase.from('links').select('*').order('order_index', { ascending: true });
+        
+        if (linksResult && linksResult.length > 0) {
+          setLinksData(linksResult);
+        } else {
+          setLinksData(defaultLinks);
+        }
       } catch (err) {
         console.error('Error fetching data:', err);
+        setLinksData(defaultLinks);
       } finally {
         setLoading(false);
       }
@@ -114,7 +121,7 @@ export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, vi
                   className={`group flex items-center p-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-sm hover:shadow-md cursor-pointer backdrop-blur-md border ${isDarkMode ? 'bg-black/40 border-white/10 hover:bg-black/50' : 'bg-white/40 border-white/50 hover:bg-white/60'}`}
                 >
                   <div className={`${link.color || 'bg-blue-500 hover:bg-blue-600'} text-white p-3 rounded-xl mr-4 transition-transform group-hover:rotate-6 shadow-sm flex items-center justify-center`}>
-                    {renderIcon(link.icon_name, "w-5 h-5")}
+                    {renderIcon(link.icon_name || link.iconName, "w-5 h-5")}
                   </div>
                   <div className="flex-1 text-left">
                     <h2 className="font-semibold text-base drop-shadow-sm">{link.title}</h2>

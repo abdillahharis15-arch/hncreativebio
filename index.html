@@ -3,577 +3,1214 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mas Haris - Solusi Digital Terbaik</title>
-  
-  <!-- Google Fonts: Poppins -->
+  <title>HN Creative — Solusi Digital Premium</title>
+  <meta name="description" content="HN Creative — Platform produk digital premium: Canva, Netflix, Spotify, CapCut & lebih banyak lagi. Harga terjangkau, proses cepat, garansi penuh.">
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Konfigurasi Font Tailwind agar menggunakan Poppins -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Poppins', 'sans-serif'],
-            serif: ['Georgia', 'serif'],
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --card: #141414;
+      --card-hover: #1c1c1c;
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(255,255,255,0.15);
+      --text: #f0f0f0;
+      --muted: #6b6b6b;
+      --accent: #3b82f6;
+      --green: #22c55e;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: Arial, 'Poppins', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── HOME PAGE ─── */
+    #page-home {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+
+    .bio-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .bio-logo {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #fff 0%, #666 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .bio-share-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .bio-share-btn:hover { border-color: var(--border-hover); color: var(--text); }
+
+    .bio-profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 36px;
+      text-align: center;
+    }
+    .bio-avatar-wrap {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .bio-avatar {
+      width: 88px; height: 88px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border-hover);
+    }
+    .bio-verified {
+      position: absolute;
+      bottom: 2px; right: 2px;
+      width: 22px; height: 22px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--bg);
+    }
+    .bio-name {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+    .bio-tagline {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .bio-desc {
+      font-size: 13px;
+      color: #777;
+      line-height: 1.6;
+      max-width: 300px;
+    }
+
+    .bio-socials {
+      display: flex;
+      gap: 3px;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+    .bio-social-btn {
+      width: 80px; height: 44px;
+      border-radius: 0;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    /* Instagram — kiri tumpul */
+    .social-wrap:nth-child(1) .bio-social-btn {
+      border-radius: 100px 0 0 100px;
+    }
+    /* TikTok — kotak */
+    .social-wrap:nth-child(2) .bio-social-btn {
+      border-radius: 0;
+    }
+    /* YouTube — kotak */
+    .social-wrap:nth-child(3) .bio-social-btn {
+      border-radius: 0;
+    }
+    /* WhatsApp — kanan tumpul */
+    .social-wrap:nth-child(4) .bio-social-btn {
+      border-radius: 0 100px 100px 0;
+    }
+    .bio-social-btn:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Social tooltip */
+    .social-wrap {
+      position: relative;
+      display: inline-flex;
+    }
+    .social-tooltip {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: #1e1e1e;
+      border: 1px solid var(--border-hover);
+      border-radius: 12px;
+      padding: 8px 14px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 50;
+      text-align: center;
+      min-width: 100px;
+    }
+    .social-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%; left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--border-hover);
+    }
+    .social-wrap:hover .social-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .social-tooltip-platform {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .social-tooltip-count {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+      display: block;
+      letter-spacing: -0.5px;
+    }
+    .social-tooltip-count em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    /* ─── BENTO GRID ─── */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .bento-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .bento-card:hover {
+      border-color: var(--border-hover);
+      background: var(--card-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .col-span-2 { grid-column: span 2; }
+
+    .card-label {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .card-title {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .card-arrow {
+      position: absolute;
+      top: 14px; right: 16px;
+      color: var(--muted);
+      font-size: 18px;
+      transition: transform 0.2s, color 0.2s;
+    }
+    .bento-card:hover .card-arrow {
+      transform: translate(2px, -2px);
+      color: var(--text);
+    }
+    .card-icon-wrap {
+      width: 38px; height: 38px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Gradient cards */
+    .card-catalog {
+      background: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 100%);
+      border-color: transparent;
+    }
+    .card-catalog:hover { background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%); }
+    .card-catalog .card-title, .card-catalog .card-subtitle { color: #fff; }
+    .card-catalog .card-subtitle { color: rgba(255,255,255,0.6); }
+
+    .card-showcase {
+      background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
+      border-color: transparent;
+    }
+    .card-showcase:hover { background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); }
+    .card-showcase .card-title, .card-showcase .card-subtitle { color: #fff; }
+    .card-showcase .card-subtitle { color: rgba(255,255,255,0.6); }
+
+    .card-cta {
+      background: linear-gradient(135deg, #16a34a 0%, #059669 100%);
+      border-color: transparent;
+    }
+    .card-cta:hover { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); }
+    .card-cta .card-title, .card-cta .card-subtitle { color: #fff; }
+    .card-cta .card-subtitle { color: rgba(255,255,255,0.6); }
+    .card-cta .card-label { color: rgba(255,255,255,0.5); }
+
+    /* Visitor card */
+    .card-visitors { min-height: 120px; }
+    .card-stat-num {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--accent);
+      margin-top: auto;
+    }
+    .card-stat-num span { font-size: 14px; font-weight: 500; color: var(--muted); }
+
+    /* About card */
+    .card-about p { font-size: 12px; color: #777; line-height: 1.55; }
+
+    /* Ping dot */
+    .ping-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      position: relative;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+    .ping-dot::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: var(--green);
+      opacity: 0.3;
+      animation: ping 1.5s cubic-bezier(0,0,0.2,1) infinite;
+    }
+    @keyframes ping {
+      0% { transform: scale(1); opacity: 0.3; }
+      75%, 100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    .bio-footer {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 11px;
+      color: #333;
+      letter-spacing: 0.04em;
+    }
+
+    /* Fade-in */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── CATALOG PAGE ─── */
+    #page-catalog { display: none; min-height: 100vh; }
+    #page-catalog.active { display: block; }
+
+    #page-showcase { display: none; min-height: 100vh; }
+    #page-showcase.active { display: block; }
+
+    .page-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .page-header-title {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+    }
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 100px;
+      padding: 7px 16px;
+      transition: all 0.2s;
+    }
+    .back-btn:hover { color: var(--text); border-color: var(--border-hover); }
+
+    .page-hero {
+      padding: 56px 20px 36px;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .page-hero h1 {
+      font-size: clamp(20px, 5.2vw, 56px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 14px;
+      white-space: nowrap;
+    }
+    /* Catalog heading: bold word */
+    .catalog-hero-bold {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 900;
+      font-style: normal;
+      display: inline;
+    }
+    /* Catalog heading: serif italic word */
+    .catalog-hero-serif {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 400;
+      font-style: italic;
+      display: inline;
+    }
+    .page-hero h1 .highlight {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Showcase hero mixed-font heading */
+    .showcase-hero-word {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 900;
+      font-style: normal;
+      color: #22c55e;
+      letter-spacing: -2px;
+      display: inline;
+    }
+    .showcase-hero-serif {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 400;
+      font-style: italic;
+      color: #b0b0b0;
+      letter-spacing: -1px;
+      display: inline;
+    }
+    .page-hero p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* Catalog grid */
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding: 0 8px 80px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    @media (min-width: 560px) {
+      .catalog-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0 16px 80px;
+      }
+    }
+    @media (min-width: 860px) {
+      .catalog-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    }
+    .product-card-img {
+      width: 100%; height: 160px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+      flex-shrink: 0;
+    }
+    .product-card:hover .product-card-img { transform: scale(1.05); }
+    .product-card-body {
+      padding: 16px; flex: 1;
+      display: flex; flex-direction: column;
+    }
+    .product-brand {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+    }
+    .product-logo { width: 28px; height: 28px; border-radius: 8px; object-fit: cover; }
+    .product-prefix { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .product-name { font-family: 'Poppins', Arial, sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .product-desc { font-size: 12px; color: #666; line-height: 1.55; margin-bottom: 14px; flex: 1; }
+    .product-footer {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    }
+    .stars { display: flex; gap: 1px; margin-bottom: 4px; }
+    .star { color: #f59e0b; font-size: 12px; }
+    .sold-badge { font-size: 10px; color: var(--green); font-weight: 600; margin-bottom: 10px; }
+    .price-reveal-btn {
+      background: var(--card-hover);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px; font-weight: 600;
+      padding: 9px 16px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .price-reveal-btn:hover { border-color: var(--border-hover); color: var(--text); }
+    .price-actual {
+      font-family: 'Poppins', Arial, sans-serif; font-size: 20px; font-weight: 800; color: var(--text);
+    }
+    .price-old { font-size: 11px; color: var(--muted); text-decoration: line-through; }
+    .checkout-btn {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #fff; font-size: 11px; font-weight: 700;
+      padding: 10px 18px; border-radius: 100px; border: none;
+      cursor: pointer; transition: all 0.2s;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      text-decoration: none; display: inline-block;
+    }
+    .checkout-btn:hover { opacity: 0.85; transform: scale(1.03); }
+
+    /* Mobile overrides for compact catalog layout */
+    @media (max-width: 559px) {
+      .product-card {
+        border-radius: 14px;
+      }
+      .product-card-img {
+        height: 95px;
+      }
+      .product-card-body {
+        padding: 10px;
+      }
+      .product-brand {
+        gap: 4px;
+        margin-bottom: 4px;
+      }
+      .product-logo {
+        width: 18px;
+        height: 18px;
+        border-radius: 4px;
+      }
+      .product-prefix {
+        font-size: 8px;
+      }
+      .product-name {
+        font-size: 13px;
+        margin-bottom: 2px;
+      }
+      .product-desc {
+        display: none; /* Sembunyikan deskripsi di HP biar hemat vertikal */
+      }
+      .stars {
+        display: none; /* Sembunyikan rating bintang di HP */
+      }
+      .sold-badge {
+        font-size: 8px;
+        margin-bottom: 6px;
+      }
+      .price-actual {
+        font-size: 15px;
+      }
+      .price-old {
+        font-size: 9px;
+      }
+      .price-reveal-btn, .checkout-btn {
+        font-size: 9px;
+        padding: 6px 10px;
+      }
+    }
+
+    /* Showcase */
+    .showcase-grid {
+      display: grid; grid-template-columns: 1fr; gap: 12px;
+      padding: 20px 16px 80px; max-width: 600px; margin: 0 auto;
+    }
+    .showcase-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+      display: flex; text-decoration: none; color: var(--text);
+      transition: all 0.3s;
+    }
+    .showcase-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .showcase-card-img { width: 110px; min-height: 120px; object-fit: cover; flex-shrink: 0; }
+    .showcase-card-body {
+      padding: 16px; display: flex; flex-direction: column; justify-content: space-between; flex: 1;
+    }
+    .showcase-platform { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .showcase-platform img { width: 24px; height: 24px; }
+    .showcase-platform span { font-family: 'Poppins', Arial, sans-serif; font-weight: 700; font-size: 16px; }
+    .showcase-desc { font-size: 12px; color: #666; line-height: 1.5; margin-bottom: 10px; }
+    .showcase-btn {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 8px 14px; border-radius: 100px;
+      color: #fff; text-decoration: none; width: fit-content; margin-top: 12px;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1e1e1e; border: 1px solid var(--border-hover);
+      color: var(--text); padding: 12px 24px; border-radius: 100px;
+      font-size: 13px; font-weight: 500; z-index: 9999;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      white-space: nowrap; backdrop-filter: blur(20px);
+      pointer-events: none;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* IAB Banner */
+    #iab-banner {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0;
+      background: var(--accent); color: #fff;
+      padding: 10px 16px; z-index: 9998;
+      font-size: 12px; font-weight: 500;
+      text-align: center; gap: 12px;
+      align-items: center; justify-content: center;
+    }
+    #iab-banner.show { display: flex; }
+    #iab-close {
+      background: rgba(255,255,255,0.2); border: none; color: #fff;
+      border-radius: 50%; width: 22px; height: 22px;
+      cursor: pointer; font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- IAB Banner -->
+<div id="iab-banner">
+  <span>🌐 Buka di <strong>Chrome/Safari</strong> untuk pengalaman terbaik! Klik ⋮ lalu "Buka di Browser".</span>
+  <button id="iab-close">✕</button>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- ═══════════════ HOME PAGE ═══════════════ -->
+<div id="page-home">
+
+  <header class="bio-header">
+    <div class="bio-logo">HN Creative</div>
+    <button class="bio-share-btn" id="share-btn" title="Bagikan">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+      </svg>
+    </button>
+  </header>
+
+  <section class="bio-profile fade-in">
+    <div class="bio-avatar-wrap">
+      <img src="https://i.ibb.co.com/fVMTm44r/b3f64d34-5b1b-4539-a0cc-b108a0600cff.jpg" alt="Mas Haris" class="bio-avatar" />
+      <div class="bio-verified">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
+          <polyline points="20 6 9 17 4 12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+    <h1 class="bio-name">Mas Haris</h1>
+    <p class="bio-tagline">HELPING YOU FULFILL YOUR SOCIAL & DIGITAL NEEDS</p>
+  </section>
+
+  <!-- Social Icons -->
+  <div class="bio-socials fade-in" style="transition-delay:0.08s">
+
+    <!-- Instagram -->
+    <div class="social-wrap">
+      <a href="https://www.instagram.com/mharisabdillah_/" target="_blank" rel="noopener noreferrer" class="bio-social-btn" title="Instagram">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <div class="social-tooltip">
+        <span class="social-tooltip-platform">Instagram</span>
+        <span class="social-tooltip-count"><em id="ig-count">...</em> Followers</span>
+      </div>
+    </div>
+
+    <!-- TikTok -->
+    <div class="social-wrap">
+      <a href="#" class="bio-social-btn" title="TikTok">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.35a8.16 8.16 0 004.77 1.52V7.43a4.85 4.85 0 01-1-.74z"/>
+        </svg>
+      </a>
+      <div class="social-tooltip">
+        <span class="social-tooltip-platform">TikTok</span>
+        <span class="social-tooltip-count"><em id="tt-count">...</em> Followers</span>
+      </div>
+    </div>
+
+    <!-- YouTube -->
+    <div class="social-wrap">
+      <a href="#" class="bio-social-btn" title="YouTube">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2.5 17a24.12 24.12 0 010-10 2 2 0 011.4-1.4 49.56 49.56 0 0116.2 0A2 2 0 0121.5 7a24.12 24.12 0 010 10 2 2 0 01-1.4 1.4 49.55 49.55 0 01-16.2 0A2 2 0 012.5 17"/>
+          <polygon points="10 15 15 12 10 9 10 15" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <div class="social-tooltip">
+        <span class="social-tooltip-platform">YouTube</span>
+        <span class="social-tooltip-count"><em id="yt-count">...</em> Subscribers</span>
+      </div>
+    </div>
+
+    <!-- WhatsApp -->
+    <div class="social-wrap">
+      <a href="https://wa.me/6285121358761" target="_blank" rel="noopener noreferrer" class="bio-social-btn" title="WhatsApp">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </a>
+      <div class="social-tooltip">
+        <span class="social-tooltip-platform">WhatsApp</span>
+        <span class="social-tooltip-count"><em>Fast</em> Response</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BENTO GRID -->
+  <div class="bento-grid fade-in" style="transition-delay:0.16s">
+
+    <!-- Katalog (full width) -->
+    <div class="bento-card card-catalog col-span-2" onclick="showPage('catalog')">
+      <span class="card-arrow">↗</span>
+      <div class="card-icon-wrap" style="background:rgba(255,255,255,0.15);">🛍️</div>
+      <div class="card-title">Katalog Produk Digital</div>
+      <div class="card-subtitle">Canva · Netflix · Spotify · CapCut &amp; lainnya</div>
+    </div>
+
+    <!-- About -->
+    <div class="bento-card card-about" style="cursor:default;">
+      <div class="card-label">Hey 👋</div>
+      <div class="card-title" style="font-size:14px; margin-bottom:8px;">Tentang Kami</div>
+      <p>Platform produk digital premium terpercaya. Fast response &amp; garansi penuh.</p>
+    </div>
+
+    <!-- Visitor -->
+    <div class="bento-card card-visitors" style="cursor:default;">
+      <div class="card-label"><span class="ping-dot"></span>Live</div>
+      <div style="margin-top:auto;">
+        <div class="card-stat-num" id="visitor-count">0<span>+</span></div>
+        <div class="card-subtitle">Total Pengunjung</div>
+      </div>
+    </div>
+
+    <!-- Showcase -->
+    <div class="bento-card card-showcase" onclick="showPage('showcase')">
+      <span class="card-arrow">↗</span>
+      <div class="card-icon-wrap" style="background:rgba(255,255,255,0.15);">🏪</div>
+      <div class="card-title">Official Store</div>
+      <div class="card-subtitle">Shopee &amp; TikTok Shop</div>
+    </div>
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/6285121358761?text=Halo%20Admin%20Mas%20Haris,%20saya%20ingin%20bertanya%20tentang%20produk/layanan%20Anda." target="_blank" rel="noopener noreferrer" class="bento-card card-cta">
+      <div class="card-label">Fast Response</div>
+      <div class="card-icon-wrap" style="background:rgba(255,255,255,0.15);">💬</div>
+      <div class="card-title">Chat Admin</div>
+      <div class="card-subtitle">WA · 08.00 – 17.00</div>
+    </a>
+
+    <!-- Landing Page (full width) -->
+    <a href="https://hncreativeedu.vercel.app/" target="_blank" rel="noopener noreferrer" class="bento-card col-span-2" style="flex-direction:row; align-items:center; gap:14px;">
+      <div class="card-icon-wrap" style="background:rgba(59,130,246,0.12); width:44px; height:44px; border-radius:14px; flex-shrink:0;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><path d="M2 12h20"/>
+        </svg>
+      </div>
+      <div style="flex:1">
+        <div class="card-title" style="font-size:15px;">Landing Page Resmi</div>
+        <div class="card-subtitle">Panduan lengkap &amp; cara order aman</div>
+      </div>
+      <span style="color:var(--muted); font-size:20px; flex-shrink:0;">→</span>
+    </a>
+
+    <!-- Product preview 1 -->
+    <div class="bento-card" style="padding:0; overflow:hidden; min-height:160px; cursor:default;">
+      <img src="https://gizmologi.id/wp-content/uploads/2024/05/New-Canva-UI-860x484.jpg" alt="Canva" style="width:100%;height:100px;object-fit:cover;display:block;"/>
+      <div style="padding:12px 14px">
+        <div class="card-label" style="margin-bottom:2px;">Canva</div>
+        <div class="card-title" style="font-size:14px;">Pro Access</div>
+      </div>
+    </div>
+
+    <!-- Product preview 2 -->
+    <div class="bento-card" style="padding:0; overflow:hidden; min-height:160px; cursor:default;">
+      <img src="https://gadget.jagatreview.com/wp-content/uploads/2025/11/Spotify-Premium-Platinum-features-1920x1080.webp" alt="Spotify" style="width:100%;height:100px;object-fit:cover;display:block;"/>
+      <div style="padding:12px 14px">
+        <div class="card-label" style="margin-bottom:2px;">Spotify</div>
+        <div class="card-title" style="font-size:14px;">Premium</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="bio-footer fade-in" style="transition-delay:0.25s">
+    © 2025 Mas Haris · HN Creative
+  </footer>
+</div>
+
+
+<!-- ═══════════════ CATALOG PAGE ═══════════════ -->
+<div id="page-catalog">
+  <header class="page-header">
+    <div class="page-header-title">🛍️ Katalog Produk</div>
+    <button class="back-btn" onclick="showPage('home')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
+      </svg>
+      Kembali
+    </button>
+  </header>
+  <div class="page-hero">
+    <h1><span class="catalog-hero-bold">Upgrade</span> <span class="catalog-hero-serif highlight">Akses Digital</span> <span class="catalog-hero-bold">Kamu</span></h1>
+    <p>Produk berlangganan premium, harga jauh lebih hemat. Proses cepat, garansi penuh, 100% aman.</p>
+  </div>
+  <div class="catalog-grid" id="catalog-grid"></div>
+</div>
+
+
+<!-- ═══════════════ SHOWCASE PAGE ═══════════════ -->
+<div id="page-showcase">
+  <header class="page-header">
+    <div class="page-header-title">🏪 Official Store</div>
+    <button class="back-btn" onclick="showPage('home')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
+      </svg>
+      Kembali
+    </button>
+  </header>
+  <div class="page-hero">
+    <h1><span class="showcase-hero-word">Official</span> <span class="showcase-hero-serif">Showcase</span></h1>
+    <p>Produk rekomendasi dengan diskon &amp; gratis ongkir. Belanja langsung di platform resmi.</p>
+  </div>
+  <div class="showcase-grid" id="showcase-grid"></div>
+</div>
+
+
+<script>
+// ── DATA ───────────────────────────────────
+const catalogItems = [
+  { id:1, prefix:'Canva', name:'Pro 1 Bulan', rating:5.0, sold:'4,2Rb+ Terjual', price:'8K', oldPrice:'15K',
+    image:'https://gizmologi.id/wp-content/uploads/2024/05/New-Canva-UI-860x484.jpg',
+    logo:'https://img.icons8.com/color/512/canva.png',
+    desc:'Akses penuh template premium, elemen grafis, dan fitur ajaib Canva Pro untuk desain tanpa batas.',
+    checkoutUrl:'http://lynk.id/hncreative_/8nXyb5N/checkout' },
+  { id:2, prefix:'CapCut', name:'Pro 1 Bulan', rating:4.8, sold:'2,8Rb+ Terjual', price:'25K', oldPrice:'35K',
+    image:'https://www.aiseesoft.com/images/resource/capcut/capcut-app.jpg',
+    logo:'https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxtHdRB6xk71KqOPxE23.XPgLjp..PdEhXa0HBKjsrfQnCmvs.qP_b5HVX7HUgUN2lnpQapm5ozMWxp4GdOkdfM8-&format=source',
+    desc:'Edit video tanpa watermark, efek transisi premium, dan alat AI canggih untuk konten FYP dan viral.',
+    checkoutUrl:'' },
+  { id:3, prefix:'Netflix', name:'Premium 4K', rating:4.9, sold:'5Rb+ Terjual', price:'50K', oldPrice:'95K',
+    image:'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=400&q=80',
+    logo:'https://img.icons8.com/color/512/netflix.png',
+    desc:'Nonton film & series favorit tanpa batas dengan kualitas 4K HDR. Garansi anti-hold dan fitur lengkap.',
+    checkoutUrl:'http://lynk.id/hncreative_/ovzd1q7owj07/checkout' },
+  { id:4, prefix:'Spotify', name:'Premium 1 Bulan', rating:4.9, sold:'3,5Rb+ Terjual', price:'30K', oldPrice:'45K',
+    image:'https://gadget.jagatreview.com/wp-content/uploads/2025/11/Spotify-Premium-Platinum-features-1920x1080.webp',
+    logo:'https://img.icons8.com/color/512/spotify--v1.png',
+    desc:'Dengarkan musik tanpa iklan, skip lagu sepuasnya, dan download untuk offline.',
+    checkoutUrl:'http://lynk.id/hncreative_/j1kdmj2vxjjm/checkout' },
+  { id:5, prefix:'YouTube', name:'Premium 1 Bulan', rating:4.8, sold:'2,1Rb+ Terjual', price:'30K', oldPrice:'69K',
+    image:'https://bertuahpos.com/wp-content/uploads/2024/10/youtube-ios-app.jpg',
+    logo:'https://img.icons8.com/color/512/youtube-play.png',
+    desc:'Nonton YouTube & YT Music tanpa iklan sama sekali. Bisa putar di latar belakang!',
+    checkoutUrl:'' },
+  { id:6, prefix:'VSCO', name:'Premium', rating:4.8, sold:'2,4Rb+ Terjual', price:'30K', oldPrice:'75K',
+    image:'https://images.squarespace-cdn.com/content/v1/626789f5599dbd0a915238d2/1654719907230-6QXODKX2OP11IDSN97WN/VSCOO.jpg',
+    logo:'https://play-lh.googleusercontent.com/RdCklOFg3SLN5QF8OR7cU-5bs1ESYo_pqGYrK2ena3XZDcrLOpjf7vLtNQELOR7Uo4MH=w240-h480-rw',
+    desc:'Buka semua preset estetik premium VSCO X dan alat editing tingkat lanjut untuk feed lebih rapi.',
+    checkoutUrl:'http://lynk.id/hncreative_/vxygp30ywo08/checkout' },
+  { id:7, prefix:'Canva', name:'Pro 1 Tahun', rating:5.0, sold:'3,1Rb+ Terjual', price:'50K', oldPrice:'120K',
+    image:'https://gizmologi.id/wp-content/uploads/2024/05/New-Canva-UI-860x484.jpg',
+    logo:'https://img.icons8.com/color/512/canva.png',
+    desc:'Lebih hemat! Akses penuh template premium dan fitur Canva Pro selama 1 tahun penuh.',
+    checkoutUrl:'http://lynk.id/hncreative_/w4o5pk3p5l4x/checkout' },
+  { id:8, prefix:'Zoom', name:'Premium', rating:4.9, sold:'4,5Rb+ Terjual', price:'35K', oldPrice:'65K',
+    image:'https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=400&q=80',
+    logo:'https://img.icons8.com/color/512/zoom.png',
+    desc:'Meeting tanpa batas 40 menit! Record cloud dan co-host untuk webinar yang lancar.',
+    checkoutUrl:'' }
+];
+
+const showcaseItems = [
+  { id:'shopee', name:'Shopee', rating:5.0, sold:'5Rb+ Terjual',
+    image:'https://akcdn.detik.net.id/visual/2024/06/27/logo-shopee_169.jpeg?w=1200',
+    logo:'https://img.icons8.com/color/512/shopee.png', bgColor:'#ee4d2d',
+    desc:'Klaim voucher gratis ongkir dan nikmati diskon besar untuk semua produk kami.',
+    url:'https://collshp.com/hncreative', btnText:'Buka Shopee' },
+  { id:'tiktok', name:'TikTok Shop', rating:4.9, sold:'3Rb+ Terjual',
+    image:'https://gamebrott.com/wp-content/uploads/2023/10/TikTok-Shop-Dikabarkan.jpg',
+    logo:'https://img.icons8.com/color/512/tiktok.png', bgColor:'#010101',
+    desc:'Belanja sambil nonton live! Promo eksklusif dan harga spesial hanya di TikTok Shop.',
+    url:'https://vt.tokopedia.com/t/ZS9duLxCvngNb-B8yyW/', btnText:'Buka TikTok' }
+];
+
+// ── PAGE ROUTING ────────────────────────────
+function showPage(page) {
+  document.getElementById('page-home').style.display = page === 'home' ? '' : 'none';
+  document.getElementById('page-catalog').classList.toggle('active', page === 'catalog');
+  document.getElementById('page-showcase').classList.toggle('active', page === 'showcase');
+  window.scrollTo(0, 0);
+}
+
+// ── TOAST ───────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── SHARE ───────────────────────────────────
+document.getElementById('share-btn').addEventListener('click', async () => {
+  const url = 'https://hncreativebio.vercel.app/';
+  if (navigator.share) {
+    try { await navigator.share({ title:'HN Creative', text:'Platform digital premium!', url }); } catch(e) {}
+  } else {
+    try { await navigator.clipboard.writeText(url); showToast('Tautan berhasil disalin!'); }
+    catch(e) { showToast('Gagal menyalin tautan.'); }
+  }
+});
+
+// ── VISITOR COUNTER ──────────────────────────
+(function() {
+  const el = document.getElementById('visitor-count');
+  const target = 100000, dur = 2000, start = performance.now();
+  function update(now) {
+    const p = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 4);
+    el.innerHTML = Math.floor(ease * target).toLocaleString('id-ID') + '<span>+</span>';
+    if (p < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+})();
+
+
+// ── SOCIAL FOLLOWER TOOLTIPS ─────────────────
+const socialStats = {
+  yt: { target: 890 }  // ← update manual sesuai subscriber YouTube
+};
+
+function formatCount(n) {
+  if (n >= 1000000) return (n / 1000000).toFixed(1).replace('.0','') + 'M';
+  if (n >= 1000)    return (n / 1000).toFixed(1).replace('.0','') + 'K';
+  return n.toLocaleString('id-ID');
+}
+
+function animateCount(elId, target, duration) {
+  const el = document.getElementById(elId);
+  if (!el || el.dataset.done) return;
+  el.dataset.done = '1';
+  const start = performance.now();
+  function tick(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = formatCount(Math.floor(ease * target));
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = formatCount(target) + '+';
+  }
+  requestAnimationFrame(tick);
+}
+
+// ── INSTAGRAM REAL-TIME FOLLOWER FETCH ───────
+const IG_FALLBACK = 6065;
+const IG_USERNAME = 'mharisabdillah_';
+
+async function fetchIGFollowers() {
+  const el = document.getElementById('ig-count');
+  if (!el) return;
+  el.innerHTML = '<span style="color:var(--green);font-size:10px;">⬤</span> live';
+
+  const proxies = [
+    `https://api.allorigins.win/get?url=${encodeURIComponent('https://www.instagram.com/' + IG_USERNAME + '/?__a=1&__d=dis')}`,
+    `https://api.allorigins.win/get?url=${encodeURIComponent('https://www.instagram.com/' + IG_USERNAME + '/')}`,
+    `https://corsproxy.io/?${encodeURIComponent('https://www.instagram.com/' + IG_USERNAME + '/')}`
+  ];
+
+  for (const proxyUrl of proxies) {
+    try {
+      const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+      if (!res.ok) continue;
+      let html = '';
+      try { const j = await res.json(); html = j.contents || ''; }
+      catch { html = await res.text(); }
+
+      const patterns = [
+        /"edge_followed_by":\{"count":(\d+)\}/,
+        /\"followers\":(\d+)/,
+        /"follower_count":(\d+)/,
+        /(\d[\d,]+)\s*[Ff]ollower/,
+      ];
+      for (const pat of patterns) {
+        const m = html.match(pat);
+        if (m) {
+          const count = parseInt(m[1].replace(/,/g,''), 10);
+          if (count > 0) {
+            el.dataset.done = '';
+            animateCount('ig-count', count, 1200);
+            try { localStorage.setItem('ig_followers', count + '|' + Date.now()); } catch(e) {}
+            return;
           }
         }
       }
+    } catch(e) {}
+  }
+
+  // Cache fallback
+  try {
+    const cached = localStorage.getItem('ig_followers');
+    if (cached) {
+      const [count] = cached.split('|');
+      el.dataset.done = '';
+      animateCount('ig-count', parseInt(count), 1200);
+      return;
     }
-  </script>
-  
-  <!-- React & ReactDOM -->
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  
-  <!-- Babel (Untuk menerjemahkan bahasa React di dalam browser) -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-</head>
-<body class="bg-[#FAFAFA] text-slate-900 overflow-x-hidden">
-  
-  <!-- Tempat aplikasi React akan dimuat -->
-  <div id="root"></div>
+  } catch(e) {}
 
-  <!-- Kode React Anda diletakkan di sini -->
-  <script type="text/babel">
-    const { useState, useEffect } = React;
+  // Last-known fallback
+  el.dataset.done = '';
+  animateCount('ig-count', IG_FALLBACK, 1200);
+}
 
-    // Kumpulan SVG Ikon Lucide (Bypass UMD CDN Error)
-    const iconsPaths = {
-      ShoppingBag: '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>',
-      MessageCircle: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
-      Store: '<path d="m2 7 4.04-4.04a2 2 0 0 1 1.41-.58h9.1a2 2 0 0 1 1.41.58L22 7"/><path d="M2 12h20"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M10 12v8"/><path d="M14 12v8"/>',
-      Globe: '<circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/>',
-      Share2: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>',
-      Moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
-      Sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
-      Instagram: '<rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>',
-      Twitter: '<path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>',
-      Youtube: '<path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/>',
-      CheckCircle2: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
-      Hexagon: '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>',
-      Users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
-      ArrowLeft: '<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
-      Star: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
-      Lock: '<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
-      ChevronDown: '<path d="m6 9 6 6 6-6"/>',
-      Play: '<polygon points="5 3 19 12 5 21 5 3"/>',
-      X: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>'
-    };
+// ── TIKTOK REAL-TIME FOLLOWER FETCH ──────────
+const TT_FALLBACK = 987;
+const TT_USERNAME = 'hn_creative';
 
-    const Icon = ({ name, className="", fill="none", ...props }) => (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill={fill} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} dangerouslySetInnerHTML={{ __html: iconsPaths[name] }} {...props} />
-    );
+async function fetchTikTokFollowers() {
+  const el = document.getElementById('tt-count');
+  if (!el) return;
+  el.innerHTML = '<span style="color:var(--green);font-size:10px;">⬤</span> live';
 
-    const ShoppingBag = (props) => <Icon name="ShoppingBag" {...props} />;
-    const MessageCircle = (props) => <Icon name="MessageCircle" {...props} />;
-    const Store = (props) => <Icon name="Store" {...props} />;
-    const Globe = (props) => <Icon name="Globe" {...props} />;
-    const Share2 = (props) => <Icon name="Share2" {...props} />;
-    const Moon = (props) => <Icon name="Moon" {...props} />;
-    const Sun = (props) => <Icon name="Sun" {...props} />;
-    const Instagram = (props) => <Icon name="Instagram" {...props} />;
-    const Twitter = (props) => <Icon name="Twitter" {...props} />;
-    const Youtube = (props) => <Icon name="Youtube" {...props} />;
-    const CheckCircle2 = (props) => <Icon name="CheckCircle2" {...props} />;
-    const Hexagon = (props) => <Icon name="Hexagon" {...props} />;
-    const Users = (props) => <Icon name="Users" {...props} />;
-    const ArrowLeft = (props) => <Icon name="ArrowLeft" {...props} />;
-    const Star = (props) => <Icon name="Star" {...props} />;
-    const Lock = (props) => <Icon name="Lock" {...props} />;
-    const ChevronDown = (props) => <Icon name="ChevronDown" {...props} />;
-    const Play = (props) => <Icon name="Play" {...props} />;
-    const X = (props) => <Icon name="X" {...props} />;
+  const proxies = [
+    `https://api.allorigins.win/get?url=${encodeURIComponent('https://www.tiktok.com/@' + TT_USERNAME)}`,
+    `https://corsproxy.io/?${encodeURIComponent('https://www.tiktok.com/@' + TT_USERNAME)}`
+  ];
 
-    function App() {
-      // Mengatur tema awal otomatis berdasarkan jam lokal pengguna (Real-time)
-      const [isDarkMode, setIsDarkMode] = useState(() => {
-        const currentHour = new Date().getHours();
-        return currentHour >= 18 || currentHour < 6;
-      });
-      
-      const [toastMessage, setToastMessage] = useState('');
-      const [visitorCount, setVisitorCount] = useState(0);
-      const [currentView, setCurrentView] = useState('home');
-      const [revealedItems, setRevealedItems] = useState([]);
-      const [showBrowserPrompt, setShowBrowserPrompt] = useState(false);
+  for (const proxyUrl of proxies) {
+    try {
+      const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+      if (!res.ok) continue;
+      let html = '';
+      try { const j = await res.json(); html = j.contents || ''; }
+      catch { html = await res.text(); }
 
-      // Deteksi In-App Browser (IG/TikTok) saat web pertama kali dimuat
-      useEffect(() => {
-        const ua = navigator.userAgent || navigator.vendor || window.opera;
-        // Cek string yang biasa dipakai browser bawaan aplikasi sosial media
-        const isIAB = /Instagram|TikTok|Bytedance|FBAN|FBAV|Line/i.test(ua);
-        if (isIAB) {
-          setShowBrowserPrompt(true);
-        }
-      }, []);
-
-      // Data untuk halaman Showcase (Shopee & TikTok)
-      const showcaseItems = [
-        {
-          id: 'shopee',
-          prefix: 'Official Store',
-          title: 'Shopee',
-          rating: 5.0,
-          sold: '5Rb+ Terjual',
-          image: 'https://akcdn.detik.net.id/visual/2024/06/27/logo-shopee_169.jpeg?w=1200',
-          logo: 'https://img.icons8.com/color/512/shopee.png',
-          bgColor: '#ee4d2d',
-          description: 'Klaim voucher gratis ongkir dan nikmati diskon besar-besaran untuk semua produk kami di Shopee.',
-          url: 'https://collshp.com/hncreative',
-          btnText: 'BUKA SHOPEE'
-        },
-        {
-          id: 'tiktok',
-          prefix: 'Official Store',
-          title: 'TikTok Shop',
-          rating: 4.9,
-          sold: '3Rb+ Terjual',
-          image: 'https://gamebrott.com/wp-content/uploads/2023/10/TikTok-Shop-Dikabarkan.jpg',
-          logo: 'https://img.icons8.com/color/512/tiktok.png',
-          bgColor: '#000000',
-          description: 'Belanja sambil nonton live! Dapatkan promo eksklusif dan harga spesial hanya di TikTok Shop.',
-          url: 'https://vt.tokopedia.com/t/ZS9duLxCvngNb-B8yyW/',
-          btnText: 'BUKA TIKTOK'
-        }
+      const patterns = [
+        /"followerCount":(\d+)/,
+        /"fans":(\d+)/,
+        /followerCount&quot;:(\d+)/,
+        /"fans_count":(\d+)/,
       ];
-
-      // Data untuk halaman Katalog (Produk Digital)
-      const catalogItems = [
-        {
-          id: 1, prefix: 'Canva', title: 'Pro 1 Bulan', rating: 5.0, sold: '4,2Rb+ Terjual', price: '8K', oldPrice: '15K',
-          image: 'https://gizmologi.id/wp-content/uploads/2024/05/New-Canva-UI-860x484.jpg', logo: 'https://img.icons8.com/color/512/canva.png',
-          bgColor: '#8b3dff', description: 'Akses penuh ke semua template premium, elemen grafis, dan fitur ajaib Canva Pro untuk desain tanpa batas.', checkoutUrl: 'http://lynk.id/hncreative_/8nXyb5N/checkout'
-        },
-        {
-          id: 2, prefix: 'CapCut', title: 'Pro 1 Bulan', rating: 4.8, sold: '2,8Rb+ Terjual', price: '25K', oldPrice: '35K',
-          image: 'https://www.aiseesoft.com/images/resource/capcut/capcut-app.jpg', logo: 'https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxtHdRB6xk71KqOPxE23.XPgLjp..PdEhXa0HBKjsrfQnCmvs.qP_b5HVX7HUgUN2lnpQapm5ozMWxp4GdOkdfM8-&format=source',
-          bgColor: '#1f2937', description: 'Edit video tanpa watermark, efek transisi premium, dan alat AI canggih untuk konten FYP dan viral kamu.', checkoutUrl: ''
-        },
-        {
-          id: 3, prefix: 'Netflix', title: 'Premium 4K', rating: 4.9, sold: '5Rb+ Terjual', price: '50K', oldPrice: '95K',
-          image: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=400&q=80', logo: 'https://img.icons8.com/color/512/netflix.png',
-          bgColor: '#e50914', description: 'Nonton film & series favorit tanpa batas dengan kualitas 4K HDR. Garansi anti-hold dan fitur lengkap.', checkoutUrl: 'http://lynk.id/hncreative_/ovzd1q7owj07/checkout'
-        },
-        {
-          id: 4, prefix: 'Spotify', title: 'Prem 1 Bulan', rating: 4.9, sold: '3,5Rb+ Terjual', price: '30K', oldPrice: '45K',
-          image: 'https://gadget.jagatreview.com/wp-content/uploads/2025/11/Spotify-Premium-Platinum-features-1920x1080.webp', logo: 'https://img.icons8.com/color/512/spotify--v1.png',
-          bgColor: '#1db954', description: 'Dengarkan musik tanpa iklan, skip lagu sepuasnya, dan download untuk mendengarkan secara offline.', checkoutUrl: 'http://lynk.id/hncreative_/j1kdmj2vxjjm/checkout'
-        },
-        {
-          id: 5, prefix: 'YouTube', title: 'Prem 1 Bulan', rating: 4.8, sold: '2,1Rb+ Terjual', price: '30K', oldPrice: '69K',
-          image: 'https://bertuahpos.com/wp-content/uploads/2024/10/youtube-ios-app.jpg', logo: 'https://img.icons8.com/color/512/youtube-play.png',
-          bgColor: '#ff0000', description: 'Nonton video YouTube dan dengerin YT Music tanpa jeda iklan sama sekali. Bisa putar di latar belakang!', checkoutUrl: ''
-        },
-        {
-          id: 6, prefix: 'VSCO', title: 'Premium', rating: 4.8, sold: '2,4Rb+ Terjual', price: '30K', oldPrice: '75K',
-          image: 'https://images.squarespace-cdn.com/content/v1/626789f5599dbd0a915238d2/1654719907230-6QXODKX2OP11IDSN97WN/VSCOO.jpg', logo: 'https://play-lh.googleusercontent.com/RdCklOFg3SLN5QF8OR7cU-5bs1ESYo_pqGYrK2ena3XZDcrLOpjf7vLtNQELOR7Uo4MH=w240-h480-rw',
-          bgColor: '#181818', description: 'Buka semua preset estetik premium VSCO X dan alat editing tingkat lanjut untuk feed Instagram yang lebih rapi.', checkoutUrl: 'http://lynk.id/hncreative_/vxygp30ywo08/checkout'
-        },
-        {
-          id: 7, prefix: 'Canva', title: 'Pro 1 Tahun', rating: 5.0, sold: '3,1Rb+ Terjual', price: '50K', oldPrice: '120K',
-          image: 'https://gizmologi.id/wp-content/uploads/2024/05/New-Canva-UI-860x484.jpg', logo: 'https://img.icons8.com/color/512/canva.png',
-          bgColor: '#00c4cc', description: 'Lebih hemat! Akses penuh template premium, elemen grafis, dan fitur ajaib Canva Pro selama 1 tahun penuh.', checkoutUrl: 'http://lynk.id/hncreative_/w4o5pk3p5l4x/checkout'
-        },
-        {
-          id: 8, prefix: 'Zoom', title: 'Premium', rating: 4.9, sold: '4,5Rb+ Terjual', price: '35K', oldPrice: '65K',
-          image: 'https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=400&q=80', logo: 'https://img.icons8.com/color/512/zoom.png',
-          bgColor: '#2D8CFF', description: 'Meeting tanpa batas limit 40 menit! Bebas atur room, record cloud, dan fitur co-host untuk webinar yang lancar.', checkoutUrl: ''
-        }
-      ];
-
-      // Animasi Counting (Hitung naik) untuk pengunjung
-      useEffect(() => {
-        const targetCount = 100000;
-        const duration = 2000;
-        const startTime = performance.now();
-
-        const updateCounter = (currentTime) => {
-          const elapsedTime = currentTime - startTime;
-          const progress = Math.min(elapsedTime / duration, 1);
-          const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-          setVisitorCount(Math.floor(easeOutQuart * targetCount));
-
-          if (progress < 1) {
-            requestAnimationFrame(updateCounter);
-          }
-        };
-
-        requestAnimationFrame(updateCounter);
-      }, []);
-
-      // Daftar link utama
-      const links = [
-        {
-          id: 4, title: 'Landing Page', subtitle: 'Temukan cara praktis dan aman menggunakan layanan kami',
-          url: 'https://hncreativeedu.vercel.app/', icon: <Globe className="w-5 h-5" />, color: 'bg-blue-500 hover:bg-blue-600',
-        },
-        {
-          id: 2, title: 'Showcase', subtitle: 'Produk rekomendasi yang pasti diskon dan gratis ongkir ada di sini',
-          url: '#', icon: <Store className="w-5 h-5" />, color: 'bg-orange-500 hover:bg-orange-600',
-        },
-        {
-          id: 1, title: 'Katalog Produk Terbaru', subtitle: 'Lihat koleksi musim ini',
-          url: '#', icon: <ShoppingBag className="w-5 h-5" />, color: 'bg-rose-500 hover:bg-rose-600',
-        },
-        {
-          id: 3, title: 'Tanya Admin (WhatsApp)', subtitle: 'Fast response 08.00 - 17.00',
-          url: 'https://wa.me/6285121358761?text=Halo%20Admin%20Mas%20Haris,%20saya%20ingin%20bertanya%20tentang%20produk/layanan%20Anda.',
-          icon: <MessageCircle className="w-5 h-5" />, color: 'bg-emerald-500 hover:bg-emerald-600',
-        }
-      ];
-
-      const handleShare = async () => {
-        const shareData = {
-<<<<<<< HEAD
-          title: 'HN Creative - Solusi Digital Terbaik',
-          text: 'Temukan produk digital premium, diskon eksklusif, dan layanan terbaik di HN Creative!',
-=======
-          title: 'Mas Haris - Solusi Digital Terbaik',
-          text: 'Temukan produk digital premium, diskon eksklusif, dan layanan terbaik di Mas Haris!',
->>>>>>> 148ded14e16858b8c8d54e8fa35e1dc014c3ffbe
-          url: 'https://hncreativebio.vercel.app/'
-        };
-
-        // Mengecek apakah browser/perangkat mendukung fitur Share bawaan OS (biasanya di HP)
-        if (navigator.share) {
-          try {
-            await navigator.share(shareData);
-          } catch (err) {
-            console.log('User membatalkan share atau terjadi error:', err);
-          }
-        } else {
-          // Fungsi Cadangan (Fallback) jika tidak mendukung: Salin Link ke Clipboard
-          try {
-            const el = document.createElement('textarea');
-            el.value = shareData.url;
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
-            showToast('Tautan berhasil disalin!');
-          } catch (err) {
-            showToast('Gagal menyalin tautan.');
+      for (const pat of patterns) {
+        const m = html.match(pat);
+        if (m) {
+          const count = parseInt(m[1], 10);
+          if (count >= 0) {
+            el.dataset.done = '';
+            animateCount('tt-count', count, 1200);
+            try { localStorage.setItem('tt_followers', count + '|' + Date.now()); } catch(e) {}
+            return;
           }
         }
-      };
+      }
+    } catch(e) {}
+  }
 
-      const showToast = (message) => {
-        setToastMessage(message);
-        setTimeout(() => setToastMessage(''), 3000);
-      };
+  try {
+    const cached = localStorage.getItem('tt_followers');
+    if (cached) {
+      const [count] = cached.split('|');
+      el.dataset.done = '';
+      animateCount('tt-count', parseInt(count), 1200);
+      return;
+    }
+  } catch(e) {}
 
-      // Efek penerapan Dark Mode ke tag body untuk warna background penuh
-      useEffect(() => {
-        if (isDarkMode) {
-          document.body.style.backgroundColor = '#020617'; // slate-950
-        } else {
-          document.body.style.backgroundColor = '#FAFAFA';
-        }
-      }, [isDarkMode]);
+  el.dataset.done = '';
+  animateCount('tt-count', TT_FALLBACK, 1200);
+}
 
-      return (
-        <div className={`min-h-screen transition-colors duration-500 font-sans relative overflow-x-hidden ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-[#FAFAFA] text-slate-900'}`}>
-          
-          {/* Banner Peringatan In-App Browser */}
-          {showBrowserPrompt && (
-            <div className="fixed top-0 inset-x-0 bg-blue-600 text-white px-4 py-3 z-[100] flex items-center justify-between shadow-xl">
-              <div className="flex items-center gap-3">
-                <Globe className="w-6 h-6 animate-pulse shrink-0" />
-                <p className="text-[11px] font-medium leading-snug">
-                  Buka di <strong>Chrome/Safari</strong> agar lebih lancar! Klik ikon <strong>titik tiga (⋮)</strong> di pojok kanan atas lalu pilih <strong>Buka di Browser</strong>.
-                </p>
-              </div>
-              <button onClick={() => setShowBrowserPrompt(false)} className="p-1.5 bg-white/20 rounded-full hover:bg-white/30 transition ml-2 shrink-0">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-          )}
+// Trigger animasi saat tooltip muncul (hover)
+document.querySelector('.social-wrap:nth-child(1)').addEventListener('mouseenter', () => {
+  if (!document.getElementById('ig-count').dataset.done) fetchIGFollowers();
+});
+document.querySelector('.social-wrap:nth-child(2)').addEventListener('mouseenter', () => {
+  if (!document.getElementById('tt-count').dataset.done) fetchTikTokFollowers();
+});
+document.querySelector('.social-wrap:nth-child(3)').addEventListener('mouseenter', () => {
+  animateCount('yt-count', socialStats.yt.target, 1200);
+});
 
-          {currentView === 'home' && (
-            <div className="fixed inset-0 z-0">
-              <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1920&q=80" alt="Nature Background" className="w-full h-full object-cover" />
-              <div className={`absolute inset-0 backdrop-blur-md transition-colors duration-500 ${isDarkMode ? 'bg-slate-900/80' : 'bg-white/60'}`}></div>
-            </div>
-          )}
+// Pre-fetch keduanya di background saat halaman load
+setTimeout(fetchIGFollowers, 1500);
+setTimeout(fetchTikTokFollowers, 2500);
 
-          {currentView === 'catalog' ? (
-            <div className="relative z-10 w-full flex flex-col items-center bg-transparent min-h-screen">
-              <div className={`absolute inset-0 z-0 opacity-20 pointer-events-none transition-colors duration-500`}
-                style={{ 
-                  backgroundImage: `linear-gradient(${isDarkMode ? '#334155' : '#cbd5e1'} 1px, transparent 1px), linear-gradient(90deg, ${isDarkMode ? '#334155' : '#cbd5e1'} 1px, transparent 1px)`, 
-                  backgroundSize: '40px 40px' 
-                }}></div>
-              
-              <header className="w-full max-w-6xl mx-auto px-6 py-6 flex justify-between items-center z-50">
-                <div className="flex items-center gap-2 text-xl font-black tracking-tighter text-blue-600 drop-shadow-sm">
-                  <Hexagon className="w-7 h-7 fill-current" />
-                  <span className="hidden sm:inline">MAS HARIS</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <button onClick={() => setIsDarkMode(!isDarkMode)} className={`p-2.5 rounded-full transition-all shadow-sm ${isDarkMode ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}>
-                    {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                  </button>
-                  <button onClick={() => setCurrentView('home')} className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-transform hover:scale-105 shadow-md ${isDarkMode ? 'bg-white text-black' : 'bg-black text-white'}`}>
-                    <ArrowLeft className="w-4 h-4" /> Back to Bio
-                  </button>
-                </div>
-              </header>
 
-              <main className="w-full flex flex-col items-center text-center px-4 pt-10 md:pt-20 pb-16 z-20">
-                <div className={`flex items-center gap-3 px-4 py-2 rounded-full text-xs font-bold mb-8 shadow-sm border transition-colors ${isDarkMode ? 'bg-slate-800/80 border-slate-700 text-slate-300' : 'bg-white border-slate-200 text-slate-600'}`}>
-                  <div className="flex -space-x-2">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=64&h=64&q=80" alt="User" className="w-7 h-7 rounded-full border-2 border-white object-cover shadow-sm" />
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=64&h=64&q=80" alt="User" className="w-7 h-7 rounded-full border-2 border-white object-cover shadow-sm" />
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=64&h=64&q=80" alt="User" className="w-7 h-7 rounded-full border-2 border-white object-cover shadow-sm" />
-                    <div className="w-7 h-7 rounded-full border-2 border-white bg-blue-500 text-white flex items-center justify-center text-[10px] shadow-sm">+</div>
-                  </div>
-                  <span className="ml-1">Dipercaya 10.000+ Pelanggan Setia</span>
-                </div>
-                <h1 className="text-5xl md:text-[5.5rem] font-black tracking-tight leading-[1.05] max-w-4xl drop-shadow-sm">
-                  Upgrade Akses <br className="hidden md:block" />
-                  <span className="text-blue-600 relative inline-block">
-                    Digital Premium
-                    <svg className="absolute w-full h-4 -bottom-1 md:-bottom-2 left-0 text-rose-500 opacity-60" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0,10 Q50,20 100,10" stroke="currentColor" strokeWidth="4" fill="transparent"/></svg>
-                  </span>
-                </h1>
-                <p className={`mt-8 text-lg md:text-xl font-medium max-w-2xl leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-                  Nikmati layanan berlangganan favorit Anda dengan harga jauh lebih hemat. Proses cepat, garansi penuh, dan 100% aman untuk penggunaan jangka panjang.
-                </p>
-                <div className="mt-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-4 justify-center">
-                  <button onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })} className={`flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-sm shadow-xl transition-all hover:-translate-y-1 ${isDarkMode ? 'bg-blue-600 text-white hover:bg-blue-500' : 'bg-black text-white hover:bg-gray-800'}`}>
-                    Lihat Koleksi Produk <ChevronDown className="w-4 h-4" />
-                  </button>
-                  <a href="https://wa.me/6285121358761" target="_blank" rel="noopener noreferrer" className={`flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-sm transition-all hover:-translate-y-1 border-2 ${isDarkMode ? 'border-slate-700 text-white hover:bg-slate-800' : 'border-slate-200 text-slate-800 hover:bg-slate-50'}`}>
-                    Hubungi Admin
-                  </a>
-                </div>
-              </main>
 
-              <div className="relative z-20 w-full max-w-7xl mx-auto px-4 pb-24 pt-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 lg:gap-x-10 lg:gap-y-16 items-stretch">
-                  {catalogItems.map((item) => {
-                    const isRevealed = item.price && revealedItems.includes(item.id);
-                    return (
-                    <div key={item.id} className="relative mt-24 rounded-[2.5rem] p-8 md:p-10 text-white shadow-2xl transition-all duration-500 hover:-translate-y-4 border border-white/20 backdrop-blur-sm group flex flex-col" style={{backgroundColor: item.bgColor}}>
-                      <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 w-[60%] aspect-[4/3] transition-transform duration-500 group-hover:scale-105 group-hover:-translate-y-2">
-                        <img src={item.image} alt={item.title} className="w-full h-full object-cover rounded-[1.5rem] shadow-2xl border-4 border-white/90 backdrop-blur-md" />
-                        <div className="absolute -bottom-5 -left-5 bg-white backdrop-blur-md p-3 rounded-2xl shadow-xl border-2 border-slate-100 z-30 transform -rotate-6 transition-transform group-hover:rotate-0">
-                          <img src={item.logo} alt={`Logo ${item.prefix}`} className="w-10 h-10 object-contain drop-shadow-sm" />
-                        </div>
-                      </div>
-                      <div className="absolute top-8 right-6 bg-white/90 backdrop-blur-md text-gray-900 rounded-2xl w-20 h-20 flex flex-col items-center justify-center shadow-lg border-2 border-white/50 z-20 transition-all duration-300 transform group-hover:scale-105">
-                        {!isRevealed ? (
-                          <React.Fragment>
-                            <Lock className="w-5 h-5 text-gray-700 mb-1" />
-                            <span className="text-[10px] font-bold text-gray-800 uppercase text-center leading-tight">Cek<br/>Harga</span>
-                          </React.Fragment>
-                        ) : (
-                          <div className="animate-pulse">
-                            <span className="text-[9px] text-gray-500 uppercase font-bold tracking-wider block text-center">Price</span>
-                            <span className="text-xl font-extrabold leading-none text-gray-800 block text-center">Rp{item.price.replace('K','')}k</span>
-                            <span className="text-[10px] text-gray-400 line-through font-semibold mt-0.5 block text-center">Rp {item.oldPrice}</span>
-                          </div>
-                        )}
-                      </div>
-                      <div className="pt-24 flex flex-col flex-grow">
-                        <h3 className="text-2xl italic font-serif opacity-90 mb-1">{item.prefix}</h3>
-                        <h2 className="text-4xl font-black mb-5 tracking-tight">{item.title}</h2>
-                        <div className="flex items-center gap-2 mb-6 bg-black/20 w-max px-4 py-2 rounded-full backdrop-blur-md border border-white/10 shadow-inner">
-                          <div className="flex">
-                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} className={`w-4 h-4 ${i < Math.floor(item.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-white/30 fill-white/30'}`} />
-                            ))}
-                          </div>
-                          <span className="text-sm font-bold">{item.rating}</span>
-                          <span className="text-white/40 text-xs mx-1">|</span>
-                          <span className="text-xs font-bold text-emerald-300 drop-shadow-sm">{item.sold}</span>
-                        </div>
-                        <p className="text-sm text-white/90 mb-8 leading-relaxed font-medium">{item.description}</p>
-                        <div className="mt-auto">
-                          {!isRevealed ? (
-                            <button onClick={() => setRevealedItems([...revealedItems, item.id])} className="bg-white text-slate-900 hover:bg-slate-100 px-6 py-4 rounded-full font-black text-xs tracking-widest transition-all shadow-xl border border-white/50 w-full hover:scale-[1.02]">
-                              BONGKAR HARGA
-                            </button>
-                          ) : (
-                            item.checkoutUrl ? (
-                              <a href={item.checkoutUrl} target="_blank" rel="noopener noreferrer" className="bg-emerald-500 text-white hover:bg-emerald-400 px-6 py-4 rounded-full font-black text-xs tracking-widest transition-all shadow-xl border border-white/50 w-full animate-bounce inline-block text-center hover:scale-[1.02]">
-                                LANJUT CHECKOUT
-                              </a>
-                            ) : (
-                              <button onClick={() => showToast(`Link checkout untuk ${item.prefix} akan segera hadir!`)} className="bg-emerald-500 text-white hover:bg-emerald-400 px-6 py-4 rounded-full font-black text-xs tracking-widest transition-all shadow-xl border border-white/50 w-full animate-bounce hover:scale-[1.02]">
-                                LANJUT CHECKOUT
-                              </button>
-                            )
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  )})}
-                </div>
-              </div>
-              <footer className={`w-full py-10 text-center border-t mt-auto z-20 ${isDarkMode ? 'border-slate-800 text-slate-500 bg-slate-950/80' : 'border-slate-200 text-slate-400 bg-white/80'} backdrop-blur-md`}>
-                <div className="flex justify-center gap-6 mb-4">
-                  <a href="#" className="hover:text-blue-500 transition-colors"><Instagram className="w-5 h-5" /></a>
-                  <a href="#" className="hover:text-blue-500 transition-colors"><Twitter className="w-5 h-5" /></a>
-                  <a href="#" className="hover:text-blue-500 transition-colors"><Youtube className="w-5 h-5" /></a>
-                </div>
-                <p className="text-xs font-semibold">© {new Date().getFullYear()} Mas Haris. All rights reserved.</p>
-              </footer>
-            </div>
-          ) : currentView === 'showcase' ? (
-            <div className="relative z-10 w-full flex flex-col items-center bg-transparent min-h-screen">
-              <header className="w-full max-w-6xl mx-auto px-6 py-6 flex justify-between items-center z-50">
-                <div className="flex items-center gap-2 text-xl font-black tracking-tighter text-blue-600 drop-shadow-sm">
-                  <Hexagon className="w-7 h-7 fill-current" />
-                  <span className="hidden sm:inline">MAS HARIS</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <button onClick={() => setIsDarkMode(!isDarkMode)} className={`p-2.5 rounded-full transition-all shadow-sm ${isDarkMode ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}>
-                    {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                  </button>
-                  <button onClick={() => setCurrentView('home')} className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-transform hover:scale-105 shadow-md ${isDarkMode ? 'bg-white text-black' : 'bg-black text-white'}`}>
-                    <ArrowLeft className="w-4 h-4" /> Back to Bio
-                  </button>
-                </div>
-              </header>
-              <main className="w-full flex flex-col items-center text-center px-4 pt-10 md:pt-16 pb-0 z-20">
-                <div className={`flex items-center gap-3 px-4 py-1.5 rounded-full text-xs font-bold mb-8 shadow-sm border transition-colors ${isDarkMode ? 'bg-slate-800/80 border-slate-700 text-slate-300' : 'bg-white border-slate-200 text-slate-600'}`}>
-                  <div className="flex -space-x-2">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=64&h=64&q=80" alt="User" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=64&h=64&q=80" alt="User" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=64&h=64&q=80" alt="User" className="w-6 h-6 rounded-full border-2 border-white object-cover" />
-                  </div>
-                  <span>Trusted by {visitorCount.toLocaleString('id-ID')}+ Users Worldwide</span>
-                </div>
-                <h1 className="text-5xl md:text-[5rem] font-black tracking-tight leading-[1.05] max-w-4xl drop-shadow-sm">
-                  Official <br className="hidden md:block" />
-                  <span className="text-blue-600">Showcase</span>
-                </h1>
-                <p className={`mt-6 text-lg md:text-xl font-medium max-w-2xl leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-                  Produk rekomendasi yang pasti diskon dan gratis ongkir ada di sini.
-                </p>
-              </main>
-              <div className="relative w-full max-w-5xl mx-auto h-[350px] md:h-[450px] mt-8 md:mt-12 z-10 overflow-hidden md:rounded-[2.5rem]">
-                <div className={`absolute inset-x-0 top-0 h-32 bg-gradient-to-b ${isDarkMode ? 'from-slate-950' : 'from-[#FAFAFA]'} to-transparent z-10`}></div>
-                <div className={`absolute inset-y-0 left-0 w-24 bg-gradient-to-r ${isDarkMode ? 'from-slate-950' : 'from-[#FAFAFA]'} to-transparent z-10 hidden md:block`}></div>
-                <div className={`absolute inset-y-0 right-0 w-24 bg-gradient-to-l ${isDarkMode ? 'from-slate-950' : 'from-[#FAFAFA]'} to-transparent z-10 hidden md:block`}></div>
-                <img src="https://mansajululum.ponpes.id/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-01-at-19.36.25.jpeg" alt="Showcase Background" className="w-full h-full object-cover object-center blur-md scale-105" />
-              </div>
-              <section className="w-full max-w-5xl mx-auto px-4 pb-12 md:pb-16 relative z-20 -mt-32 md:-mt-40">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {showcaseItems.map((item) => (
-                    <a key={item.id} href={item.url} target="_blank" rel="noopener noreferrer" className={`group flex flex-col md:flex-row items-center p-2 rounded-[2rem] transition-all duration-300 hover:-translate-y-2 border shadow-xl hover:shadow-2xl ${isDarkMode ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-200'}`}>
-                      <div className="w-full md:w-48 h-48 rounded-[1.5rem] overflow-hidden shrink-0 relative">
-                        <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                      </div>
-                      <div className="p-6 md:p-8 flex-1 text-left w-full">
-                        <div className="flex items-center gap-3 mb-2">
-                          <img src={item.logo} alt="Logo" className="w-8 h-8 drop-shadow-sm" />
-                          <h3 className="text-2xl font-black">{item.title}</h3>
-                        </div>
-                        <div className="flex items-center gap-2 mb-4">
-                          <div className={`flex items-center gap-1 px-2 py-0.5 rounded-md ${isDarkMode ? 'bg-yellow-500/10' : 'bg-yellow-500/20'}`}>
-                            <Star className="w-3.5 h-3.5 text-yellow-500 fill-yellow-500" />
-                            <span className={`text-xs font-bold ${isDarkMode ? 'text-yellow-500' : 'text-yellow-700'}`}>{item.rating}</span>
-                          </div>
-                          <span className={`text-xs font-semibold ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>• {item.sold}</span>
-                        </div>
-                        <p className={`text-sm font-medium leading-relaxed mb-6 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>{item.description}</p>
-                        <span className="inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-extrabold text-white tracking-wider transition-transform group-hover:scale-105" style={{ backgroundColor: item.bgColor }}>
-                          {item.btnText}
-                        </span>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </section>
-              <footer className={`w-full py-8 text-center border-t mt-auto ${isDarkMode ? 'border-slate-800 text-slate-500' : 'border-slate-200 text-slate-400'}`}>
-                <p className="text-xs font-semibold">© {new Date().getFullYear()} Mas Haris. All rights reserved.</p>
-              </footer>
-            </div>
-          ) : (
-            <div className="relative z-10 flex flex-col items-center max-w-lg mx-auto px-4 py-12 md:py-20 min-h-screen">
-              <div className="w-full flex justify-between items-center mb-8">
-                <button onClick={handleShare} className={`p-2.5 rounded-full backdrop-blur-md transition-all shadow-sm border ${isDarkMode ? 'bg-black/40 border-white/10 text-white hover:bg-black/60' : 'bg-white/40 border-white/50 text-slate-800 hover:bg-white/60'}`}>
-                  <Share2 className="w-5 h-5" />
-                </button>
-                <button onClick={() => setIsDarkMode(!isDarkMode)} className={`p-2.5 rounded-full backdrop-blur-md transition-all shadow-sm border ${isDarkMode ? 'bg-black/40 border-white/10 text-yellow-400 hover:bg-black/60' : 'bg-white/40 border-white/50 text-slate-800 hover:bg-white/60'}`}>
-                  {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                </button>
-              </div>
-              <div className="flex flex-col items-center mb-10 w-full text-center">
-                <div className="relative mb-6 group cursor-pointer">
-                  <div className="absolute inset-0 bg-blue-500 rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
-                  <img src="https://i.ibb.co.com/fVMTm44r/b3f64d34-5b1b-4539-a0cc-b108a0600cff.jpg" alt="Profile" className="w-28 h-28 rounded-full border-4 border-white/80 shadow-2xl object-cover relative z-10 transition-transform duration-300 group-hover:scale-105" />
-                </div>
-                <h1 className="text-xl font-semibold mb-1 drop-shadow-sm flex items-center justify-center gap-1">
-                  Mas Haris <img src="https://i.ibb.co.com/jkDhFmS1/Pngtree-instagram-bule-tick-insta-blue-9074860.png" alt="Verified Badge" className="w-5 h-5" />
-                </h1>
-                <p className={`text-[11px] font-medium px-6 leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-500'}`}>
-                  Halo guys! 👋 Terima kasih sudah klik link bio ini. Sekarang aku udah siap bantu penuhi kebutuhan digital premium kamu dengan harga sahabat.<br/>Yuk, cek layanannya di bawah 👇
-                </p>
-                <div className={`mt-5 flex items-center justify-center gap-2 px-4 py-2 rounded-full shadow-sm border backdrop-blur-md transition-colors ${isDarkMode ? 'bg-black/40 border-white/10 text-slate-200' : 'bg-white/40 border-white/50 text-slate-800'}`}>
-                  <div className="relative flex items-center justify-center">
-                    <Users className="w-4 h-4 text-blue-500 relative z-10" />
-                    <div className="absolute inset-0 bg-blue-500 rounded-full animate-ping opacity-20"></div>
-                  </div>
-                  <span className="text-sm font-medium">
-                    <strong className="text-blue-500">{visitorCount.toLocaleString('id-ID')}+</strong> Pengunjung
-                  </span>
-                </div>
-              </div>
-              <div className="w-full flex flex-col gap-4 mb-12">
-                {links.map((link) => (
-                  <div key={link.id} className="w-full flex flex-col gap-2">
-                    <a href={link.url} target={link.id !== 1 && link.id !== 2 && link.url !== '#' ? '_blank' : undefined} rel={link.id !== 1 && link.id !== 2 && link.url !== '#' ? 'noopener noreferrer' : undefined} onClick={(e) => {
-                        if (link.id === 1) { e.preventDefault(); setCurrentView('catalog'); window.scrollTo(0,0); } 
-                        else if (link.id === 2) { e.preventDefault(); setCurrentView('showcase'); window.scrollTo(0,0); }
-                      }}
-                      className={`group flex items-center p-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-sm hover:shadow-md cursor-pointer backdrop-blur-md border ${isDarkMode ? 'bg-black/40 border-white/10 hover:bg-black/50' : 'bg-white/40 border-white/50 hover:bg-white/60'}`}>
-                      <div className={`${link.color} text-white p-3 rounded-xl mr-4 transition-transform group-hover:rotate-6 shadow-sm`}>
-                        {link.icon}
-                      </div>
-                      <div className="flex-1 text-left">
-                        <h2 className="font-semibold text-base drop-shadow-sm">{link.title}</h2>
-                        <p className={`text-xs mt-0.5 font-medium ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>{link.subtitle}</p>
-                      </div>
-                      <div className={`p-2 rounded-full backdrop-blur-sm transition-transform duration-300 ${isDarkMode ? 'bg-white/10' : 'bg-white/50'}`}>
-                        <Globe className="w-4 h-4 opacity-70" />
-                      </div>
-                    </a>
-                  </div>
-                ))}
-              </div>
-              <div className="flex gap-6 mb-8">
-                <a href="#" className={`p-3 rounded-full backdrop-blur-md transition-all hover:-translate-y-1 shadow-sm border ${isDarkMode ? 'bg-white/10 border-white/10 hover:bg-white/20' : 'bg-white/50 border-white/50 hover:bg-white/80'}`}><Instagram className="w-5 h-5" /></a>
-                <a href="#" className={`p-3 rounded-full backdrop-blur-md transition-all hover:-translate-y-1 shadow-sm border ${isDarkMode ? 'bg-white/10 border-white/10 hover:bg-white/20' : 'bg-white/50 border-white/50 hover:bg-white/80'}`}><Twitter className="w-5 h-5" /></a>
-                <a href="#" className={`p-3 rounded-full backdrop-blur-md transition-all hover:-translate-y-1 shadow-sm border ${isDarkMode ? 'bg-white/10 border-white/10 hover:bg-white/20' : 'bg-white/50 border-white/50 hover:bg-white/80'}`}><Youtube className="w-5 h-5" /></a>
-              </div>
-              <p className={`text-xs font-semibold drop-shadow-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                © {new Date().getFullYear()} Mas Haris. All rights reserved.
-              </p>
-            </div>
-          )}
-          {toastMessage && (
-            <div className={`fixed bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-2xl flex items-center gap-2 z-50 animate-bounce backdrop-blur-md border ${isDarkMode ? 'bg-slate-800/80 border-white/10 text-white' : 'bg-white/90 border-white/50 text-slate-800'}`}>
-              <CheckCircle2 className="w-4 h-4 text-green-500" />
-              <span className="text-sm font-medium">{toastMessage}</span>
-            </div>
-          )}
+// ── STARS ───────────────────────────────────
+function starsHtml(r) {
+  return Array.from({length:5}, (_,i) => `<span class="star">${i < Math.floor(r) ? '★' : '☆'}</span>`).join('');
+}
+
+// ── RENDER CATALOG ───────────────────────────
+const cGrid = document.getElementById('catalog-grid');
+const revealedSet = new Set();
+catalogItems.forEach(item => {
+  const card = document.createElement('div');
+  card.className = 'product-card';
+  card.innerHTML = `
+    <div style="overflow:hidden;flex-shrink:0;"><img src="${item.image}" alt="${item.name}" class="product-card-img"/></div>
+    <div class="product-card-body">
+      <div class="product-brand">
+        <img src="${item.logo}" alt="${item.prefix}" class="product-logo"/>
+        <span class="product-prefix">${item.prefix}</span>
+      </div>
+      <div class="product-name">${item.name}</div>
+      <div class="stars">${starsHtml(item.rating)}</div>
+      <div class="sold-badge">${item.sold}</div>
+      <div class="product-desc">${item.desc}</div>
+      <div class="product-footer" id="pf-${item.id}">
+        <button class="price-reveal-btn" onclick="revealPrice(${item.id})">Lihat Harga</button>
+      </div>
+    </div>
+  `;
+  cGrid.appendChild(card);
+});
+
+function revealPrice(id) {
+  const item = catalogItems.find(x => x.id === id);
+  if (!item) return;
+  const fp = document.getElementById('pf-' + id);
+  fp.innerHTML = `
+    <div style="display:flex;flex-direction:column;">
+      <div class="price-actual">Rp ${item.price}</div>
+      <div class="price-old">Rp ${item.oldPrice}</div>
+    </div>
+    ${item.checkoutUrl
+      ? `<a href="${item.checkoutUrl}" target="_blank" rel="noopener noreferrer" class="checkout-btn">Checkout →</a>`
+      : `<button class="checkout-btn" onclick="showToast('Link ${item.prefix} segera hadir!')">Segera Hadir</button>`}
+  `;
+}
+
+// ── RENDER SHOWCASE ──────────────────────────
+const sGrid = document.getElementById('showcase-grid');
+showcaseItems.forEach(item => {
+  const a = document.createElement('a');
+  a.className = 'showcase-card';
+  a.href = item.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+  a.innerHTML = `
+    <img src="${item.image}" alt="${item.name}" class="showcase-card-img"/>
+    <div class="showcase-card-body">
+      <div>
+        <div class="showcase-platform">
+          <img src="${item.logo}" alt="${item.name}"/>
+          <span>${item.name}</span>
         </div>
-      );
-    }
+        <p class="showcase-desc">${item.desc}</p>
+        <div class="stars">${starsHtml(item.rating)}</div>
+        <div class="sold-badge" style="margin-top:3px;">${item.sold}</div>
+      </div>
+      <span class="showcase-btn" style="background:${item.bgColor};">${item.btnText} →</span>
+    </div>
+  `;
+  sGrid.appendChild(a);
+});
 
-    // Merender aplikasi ke dalam div #root
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
-  </script>
+// ── IAB DETECT ───────────────────────────────
+(function() {
+  if (/Instagram|TikTok|Bytedance|FBAN|FBAV|Line/i.test(navigator.userAgent)) {
+    document.getElementById('iab-banner').classList.add('show');
+  }
+  document.getElementById('iab-close').onclick = () => {
+    document.getElementById('iab-banner').classList.remove('show');
+  };
+})();
+
+// ── SCROLL FADE-IN ───────────────────────────
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
