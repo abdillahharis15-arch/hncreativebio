@@ -33,6 +33,13 @@
   margin-bottom: 12px;
 }
 
+.bio-socials {
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
 .bio-social-btn {
   width: 80px;
   height: 44px;
