@@ -113,36 +113,24 @@ function App() {
     setTimeout(() => setToastMessage(''), 3000);
   };
 
+  // Hapus efek isDarkMode untuk background body
   useEffect(() => {
-    if (isDarkMode) {
-      document.body.style.backgroundColor = '#020617'; 
-    } else {
-      document.body.style.backgroundColor = '#FAFAFA';
-    }
-  }, [isDarkMode]);
+    document.body.style.backgroundColor = '#0a0a0a';
+  }, []);
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 font-sans relative overflow-x-hidden ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-[#FAFAFA] text-slate-900'}`}>
+    <div className="min-h-screen font-sans bg-[#0a0a0a] text-[#f0f0f0] relative overflow-x-hidden">
       
       {/* Banner Peringatan In-App Browser */}
       {showBrowserPrompt && (
-        <div className="fixed top-0 inset-x-0 bg-blue-600 text-white px-4 py-3 z-[100] flex items-center justify-between shadow-xl">
-          <div className="flex items-center gap-3">
-            <Globe className="w-6 h-6 animate-pulse shrink-0" />
-            <p className="text-[11px] font-medium leading-snug">
-              Buka di <strong>Chrome/Safari</strong> agar lebih lancar! Klik ikon <strong>titik tiga (⋮)</strong> di pojok kanan atas lalu pilih <strong>Buka di Browser</strong>.
-            </p>
-          </div>
-          <button onClick={() => setShowBrowserPrompt(false)} className="p-1.5 bg-white/20 rounded-full hover:bg-white/30 transition ml-2 shrink-0">
-            <X className="w-4 h-4" />
-          </button>
+        <div id="iab-banner" className="show">
+          <span>🌐 Buka di <strong>Chrome/Safari</strong> untuk pengalaman terbaik! Klik ⋮ lalu "Buka di Browser".</span>
+          <button id="iab-close" onClick={() => setShowBrowserPrompt(false)}>✕</button>
         </div>
       )}
 
       {currentView === 'home' && (
         <HomeView 
-          isDarkMode={isDarkMode} 
-          setIsDarkMode={setIsDarkMode} 
           setCurrentView={setCurrentView} 
           visitorCount={visitorCount} 
           handleShare={handleShare} 
@@ -151,23 +139,14 @@ function App() {
 
       {currentView === 'catalog' && (
         <CatalogView 
-          isDarkMode={isDarkMode} 
-          setIsDarkMode={setIsDarkMode} 
-          currentView={currentView} 
           setCurrentView={setCurrentView} 
           showToast={showToast} 
-          handleShare={handleShare}
         />
       )}
 
       {currentView === 'showcase' && (
         <ShowcaseView 
-          isDarkMode={isDarkMode} 
-          setIsDarkMode={setIsDarkMode} 
-          currentView={currentView} 
           setCurrentView={setCurrentView} 
-          visitorCount={visitorCount} 
-          handleShare={handleShare}
         />
       )}
 
@@ -180,8 +159,8 @@ function App() {
       )}
 
       {toastMessage && (
-        <div className={`fixed bottom-6 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-2xl flex items-center gap-2 z-50 animate-bounce backdrop-blur-md border ${isDarkMode ? 'bg-slate-800/80 border-white/10 text-white' : 'bg-white/90 border-white/50 text-slate-800'}`}>
-          <span className="text-sm font-medium">{toastMessage}</span>
+        <div id="toast" className="show">
+          {toastMessage}
         </div>
       )}
     </div>
