@@ -248,7 +248,7 @@ export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, vi
         </div>
 
         {/* About */}
-        <div className="bento-card card-about" style={{ cursor: 'default' }}>
+        <div className="bento-card card-about row-span-2" style={{ cursor: 'default' }}>
           <div className="card-icon-wrap" style={{ background: 'rgba(255,255,255,0.06)', width: '38px', height: '38px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '14px', color: '#a3a3a3' }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
@@ -268,6 +268,18 @@ export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, vi
             <div className="card-subtitle">Total Pengunjung</div>
           </div>
         </div>
+
+        {/* Landing Page */}
+        <a href={lpLink.url} target="_blank" rel="noopener noreferrer" className="bento-card">
+          <span className="card-arrow">↗</span>
+          <div className="card-icon-wrap" style={{ background: 'rgba(59,130,246,0.12)', color: '#60a5fa' }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><path d="M2 12h20"/>
+            </svg>
+          </div>
+          <div className="card-title">{lpLink?.title || 'Landing Page Resmi'}</div>
+          <div className="card-subtitle">{lpLink?.subtitle || 'Panduan lengkap & cara order aman'}</div>
+        </a>
 
         {/* Showcase */}
         <div className="bento-card card-showcase" onClick={() => { setCurrentView('showcase'); window.scrollTo(0,0); }}>
@@ -292,20 +304,6 @@ export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, vi
           <div className="card-title">{waLink?.title || 'Chat Admin'}</div>
           <div className="card-subtitle">{waLink?.subtitle || 'WA · 08.00 – 17.00'}</div>
           <div className="card-label" style={{ marginTop: '8px', marginBottom: 0 }}>Fast Response</div>
-        </a>
-
-        {/* Landing Page (full width) */}
-        <a href={lpLink.url} target="_blank" rel="noopener noreferrer" className="bento-card col-span-2" style={{ flexDirection: 'row', alignItems: 'center', gap: '14px' }}>
-          <div className="card-icon-wrap" style={{ background: 'rgba(59,130,246,0.12)', width: '44px', height: '44px', borderRadius: '14px', margin: 0 }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><path d="M2 12h20"/>
-            </svg>
-          </div>
-          <div style={{ flex: 1 }}>
-            <div className="card-title" style={{ fontSize: '15px' }}>{lpLink?.title || 'Landing Page Resmi'}</div>
-            <div className="card-subtitle">{lpLink?.subtitle || 'Panduan lengkap &amp; cara order aman'}</div>
-          </div>
-          <span style={{ color: 'var(--muted)', fontSize: '20px' }}>→</span>
         </a>
 
         {/* Product preview 1 */}
