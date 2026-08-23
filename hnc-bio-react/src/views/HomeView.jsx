@@ -284,14 +284,14 @@ export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, vi
 
         {/* WhatsApp */}
         <a href={waLink.url} target="_blank" rel="noopener noreferrer" className="bento-card card-cta">
-          <div className="card-label">Fast Response</div>
           <div className="card-icon-wrap" style={{ background: 'rgba(34,197,94,0.12)', color: '#4ade80' }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
             </svg>
           </div>
           <div className="card-title">{waLink?.title || 'Chat Admin'}</div>
           <div className="card-subtitle">{waLink?.subtitle || 'WA · 08.00 – 17.00'}</div>
+          <div className="card-label" style={{ marginTop: '8px', marginBottom: 0 }}>Fast Response</div>
         </a>
 
         {/* Landing Page (full width) */}
