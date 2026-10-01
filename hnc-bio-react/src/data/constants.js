@@ -64,12 +64,12 @@ export const showcaseItems = [
 
 export const catalogItems = [
   {
-    id: 1, prefix: 'Canva', title: 'Pro 1 Bulan', rating: 5.0, sold: '4,2Rb+ Terjual', price: '8K', oldPrice: '15K',
+    id: 1, prefix: 'Canva', title: 'Pro 1 Bulan', rating: 5.0, sold: '4,2Rb+ Terjual', price: '5K', oldPrice: '15K',
     image: 'https://gizmologi.id/wp-content/uploads/2024/05/New-Canva-UI-860x484.jpg', logo: 'https://img.icons8.com/color/512/canva.png',
     bgColor: '#8b3dff', description: 'Akses penuh ke semua template premium, elemen grafis, dan fitur ajaib Canva Pro untuk desain tanpa batas.', checkoutUrl: 'http://lynk.id/hncreative_/8nXyb5N/checkout'
   },
   {
-    id: 2, prefix: 'CapCut', title: 'Pro 1 Bulan', rating: 4.8, sold: '2,8Rb+ Terjual', price: '25K', oldPrice: '35K',
+    id: 2, prefix: 'CapCut', title: 'Pro 1 Bulan', rating: 4.8, sold: '2,8Rb+ Terjual', price: '50K', oldPrice: '35K',
     image: 'https://www.aiseesoft.com/images/resource/capcut/capcut-app.jpg', logo: 'https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxtHdRB6xk71KqOPxE23.XPgLjp..PdEhXa0HBKjsrfQnCmvs.qP_b5HVX7HUgUN2lnpQapm5ozMWxp4GdOkdfM8-&format=source',
     bgColor: '#1f2937', description: 'Edit video tanpa watermark, efek transisi premium, dan alat AI canggih untuk konten FYP dan viral kamu.', checkoutUrl: ''
   },
@@ -99,8 +99,8 @@ export const catalogItems = [
     bgColor: '#00c4cc', description: 'Lebih hemat! Akses penuh template premium, elemen grafis, dan fitur ajaib Canva Pro selama 1 tahun penuh.', checkoutUrl: 'http://lynk.id/hncreative_/w4o5pk3p5l4x/checkout'
   },
   {
-    id: 8, prefix: 'Zoom', title: 'Premium', rating: 4.9, sold: '4,5Rb+ Terjual', price: '35K', oldPrice: '65K',
+    id: 8, prefix: 'Zoom', title: 'Premium', rating: 4.9, sold: '4,5Rb+ Terjual', price: '20K', oldPrice: '65K',
     image: 'https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=400&q=80', logo: 'https://img.icons8.com/color/512/zoom.png',
-    bgColor: '#2D8CFF', description: 'Meeting tanpa batas limit 40 menit! Bebas atur room, record cloud, dan fitur co-host untuk webinar yang lancar.', checkoutUrl: ''
+    bgColor: '#2D8CFF', description: 'Meeting tanpa batas limit 40 menit! Bebas atur room, record cloud, dan fitur co-host untuk webinar yang lancar.', checkoutUrl: 'https://wa.me/6285121358761?text=Halo%20Admin,%20saya%20ingin%20menanyakan%20ketersediaan%20sewa%20Zoom%20Premium.'
   }
 ];

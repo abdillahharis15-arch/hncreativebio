@@ -324,6 +324,22 @@ export default function HomeView({ isDarkMode, setIsDarkMode, setCurrentView, vi
           </div>
         </div>
 
+        {/* Price List (full width) */}
+        <div
+          className="bento-card card-pricelist col-span-2"
+          onClick={() => { setCurrentView('pricelist'); window.scrollTo(0, 0); }}
+        >
+          <span className="card-arrow">↗</span>
+          <div className="card-icon-wrap" style={{ background: 'rgba(234,179,8,0.12)', color: '#facc15' }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <div className="card-title">Price List</div>
+          <div className="card-subtitle">Jasa · Sewa Aplikasi Premium</div>
+        </div>
+
       </div>
 
       <footer className="bio-footer mt-8 text-center text-[11px] text-[#333] tracking-[0.04em]">

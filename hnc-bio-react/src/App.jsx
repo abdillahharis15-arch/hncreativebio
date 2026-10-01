@@ -3,6 +3,7 @@ import { Globe, X } from 'lucide-react';
 import HomeView from './views/HomeView';
 import CatalogView from './views/CatalogView';
 import ShowcaseView from './views/ShowcaseView';
+import PriceListView from './views/PriceListView';
 import AdminLogin from './views/AdminLogin';
 import AdminDashboard from './views/AdminDashboard';
 import { supabase } from './lib/supabase';
@@ -18,14 +19,14 @@ function App() {
   const [session, setSession] = useState(null);
   const [currentView, setCurrentView] = useState(() => {
     const path = window.location.pathname.replace(/^\/|\/$/g, '');
-    if (path === 'catalog' || path === 'showcase' || path === 'admin') return path;
+    if (path === 'catalog' || path === 'showcase' || path === 'admin' || path === 'pricelist') return path;
 
     const hash = window.location.hash.replace('#', '');
-    if (hash === 'catalog' || hash === 'showcase' || hash === 'admin') return hash;
+    if (hash === 'catalog' || hash === 'showcase' || hash === 'admin' || hash === 'pricelist') return hash;
 
     const params = new URLSearchParams(window.location.search);
     const view = params.get('view');
-    if (view === 'catalog' || view === 'showcase' || view === 'admin') return view;
+    if (view === 'catalog' || view === 'showcase' || view === 'admin' || view === 'pricelist') return view;
 
     return 'home';
   });
@@ -146,6 +147,12 @@ function App() {
 
       {currentView === 'showcase' && (
         <ShowcaseView 
+          setCurrentView={setCurrentView} 
+        />
+      )}
+
+      {currentView === 'pricelist' && (
+        <PriceListView 
           setCurrentView={setCurrentView} 
         />
       )}
